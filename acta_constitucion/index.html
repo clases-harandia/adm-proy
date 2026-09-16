@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taller Interactivo: Acta de Constitución del Proyecto - Casos Bolivia</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & DM Sans -->
+  <link rel="preconnect" href="https://fonts.preconnect.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+            },
+            amberBol: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#d97706',
+              600: '#b45309',
+            },
+            emeraldBol: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#059669',
+              600: '#047857',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Hide scrollbar for smooth horizontal mobile bars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Smooth touch interactions and prevent unintended selection while swiping */
+    .touch-swipe-card {
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Print styles for export */
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .printable-document {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 min-h-full font-sans antialiased flex flex-col text-base selection:bg-brand-100 selection:text-brand-900">
+
+  <header class="no-print bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-0 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+      <!-- Brand & Course -->
+      <div class="flex items-center space-x-2.5 sm:space-x-4 min-w-0">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-600 flex items-center justify-center text-white font-bold shadow-md shadow-brand-500/20 text-lg sm:text-xl flex-shrink-0">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5 sm:gap-2.5">
+            <span class="font-display font-bold tracking-tight text-slate-900 text-base sm:text-xl truncate">UNIVALLE • ADP</span>
+            <span class="text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 border border-brand-200 flex-shrink-0">Tema 2.3</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 truncate font-medium">Acta de Constitución • PMBOK® 7.ª Ed.</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons with touch-optimized targets -->
+      <div class="flex items-center space-x-1.5 sm:space-x-3 flex-shrink-0">
+        <button id="btn-print" onclick="window.print()" title="Imprimir o exportar PDF" class="min-h-[42px] px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 shadow-sm flex items-center gap-1.5 sm:gap-2 transition active:scale-95">
+          <i class="fa-solid fa-print text-slate-500 text-sm sm:text-base"></i>
+          <span class="hidden md:inline">Imprimir / PDF</span>
+        </button>
+        <button id="btn-share" onclick="copyDocumentToClipboard()" title="Copiar texto del acta" class="min-h-[42px] px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-600/20 flex items-center gap-1.5 sm:gap-2 transition active:scale-95">
+          <i class="fa-solid fa-copy text-sm sm:text-base"></i>
+          <span class="hidden sm:inline">Copiar Acta</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl mx-auto w-full px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-5 sm:space-y-8">
+
+    <!-- Top Educational Banner -->
+    <section class="no-print bg-white rounded-2xl p-4 sm:p-6 lg:p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+      <div class="absolute -right-6 -bottom-10 opacity-5 text-7xl sm:text-9xl text-slate-900 pointer-events-none">
+        <i class="fa-solid fa-file-signature"></i>
+      </div>
+      <div class="max-w-4xl space-y-2.5 sm:space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs sm:text-sm font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-chalkboard-user text-amber-600"></i> Cátedra Ing. Humberto Arandia Claure
+        </div>
+        <h1 class="text-xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 tracking-tight leading-snug">
+          Laboratorio Didáctico: El Acta de Constitución en Bolivia
+        </h1>
+        <p class="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed">
+          Explore paso a paso cómo los 10 requisitos indispensables del <strong>PMBOK® 7.ª Edición</strong> y <strong>Gray &amp; Larson</strong> se aplican en proyectos reales de la agroindustria yungueña, la minería de litio y la bioeconomía amazónica.
+        </p>
+      </div>
+
+      <!-- Case Studies Switcher Buttons (Responsive Grid) -->
+      <div class="mt-6 pt-5 sm:mt-8 sm:pt-6 border-t border-slate-200">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5 sm:gap-2">
+            <i class="fa-solid fa-layer-group text-brand-600 text-sm sm:text-base"></i> Seleccione un Caso Boliviano:
+          </p>
+          <span class="text-[11px] font-semibold text-slate-400 sm:hidden">Toca para cambiar</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <!-- Case 1: Café Yungas -->
+          <button onclick="switchCase('yungas')" id="btn-case-yungas" class="case-card text-left p-4 sm:p-5 rounded-2xl border-2 transition flex flex-col justify-between bg-brand-50/70 border-brand-600 text-slate-900 shadow-sm ring-2 ring-brand-500/20 active:scale-[0.98]">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[11px] sm:text-xs font-bold text-brand-700 tracking-wider uppercase bg-white px-2 py-0.5 rounded-md border border-brand-200">Caso 1 • Valles / Yungas</span>
+              <i class="fa-solid fa-mug-hot text-brand-600 text-lg sm:text-xl flex-shrink-0"></i>
+            </div>
+            <h3 class="font-display font-bold text-base sm:text-lg mt-2.5 text-slate-900">YUNGA-TECH ERP</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-normal">Trazabilidad digital y gestión de beneficio para café de especialidad (Caranavi y Coroico).</p>
+          </button>
+
+          <!-- Case 2: Litio Uyuni -->
+          <button onclick="switchCase('litio')" id="btn-case-litio" class="case-card text-left p-4 sm:p-5 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-slate-200 text-slate-700 hover:border-amber-400 hover:bg-amber-50/30 shadow-sm active:scale-[0.98]">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[11px] sm:text-xs font-bold text-amber-700 tracking-wider uppercase bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Caso 2 • Altiplano / Litio</span>
+              <i class="fa-solid fa-car-battery text-amber-600 text-lg sm:text-xl flex-shrink-0"></i>
+            </div>
+            <h3 class="font-display font-bold text-base sm:text-lg mt-2.5 text-slate-900">LITIO-BOLITECH EDL</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-normal">Planta piloto de Extracción Directa de Litio grado batería en el Salar de Uyuni (Potosí).</p>
+          </button>
+
+          <!-- Case 3: Castaña y Amazonía -->
+          <button onclick="switchCase('amazonia')" id="btn-case-amazonia" class="case-card text-left p-4 sm:p-5 rounded-2xl border-2 transition flex flex-col justify-between bg-white border-slate-200 text-slate-700 hover:border-emerald-400 hover:bg-emerald-50/30 shadow-sm active:scale-[0.98] sm:col-span-2 lg:col-span-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[11px] sm:text-xs font-bold text-emerald-700 tracking-wider uppercase bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Caso 3 • Amazonía / Frutos</span>
+              <i class="fa-solid fa-seedling text-emerald-600 text-lg sm:text-xl flex-shrink-0"></i>
+            </div>
+            <h3 class="font-display font-bold text-base sm:text-lg mt-2.5 text-slate-900">AMAZON-COLDCHAIN</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-normal">Cadena de frío y despelizado de castaña y açaí silvestre (Riberalta, Beni / Pando).</p>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs (Touch-friendly & Horizontally scrollable on mobile) -->
+    <div class="no-print overflow-x-auto no-scrollbar pb-1 border-b border-slate-200 -mx-3 px-3 sm:mx-0 sm:px-0">
+      <div class="flex items-center gap-2 sm:gap-3 min-w-max">
+        <button onclick="switchTab('step-by-step')" id="tab-step-by-step" class="tab-btn min-h-[44px] px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-base font-bold bg-brand-600 text-white shadow-sm flex items-center gap-2 transition flex-shrink-0">
+          <i class="fa-solid fa-list-check text-sm sm:text-base"></i>
+          <span>Explorador (10 Requisitos)</span>
+        </button>
+        <button onclick="switchTab('document')" id="tab-document" class="tab-btn min-h-[44px] px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-base font-bold bg-white text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-50 flex items-center gap-2 transition flex-shrink-0">
+          <i class="fa-solid fa-file-contract text-sm sm:text-base"></i>
+          <span>Documento Formal</span>
+        </button>
+        <button onclick="switchTab('comparison')" id="tab-comparison" class="tab-btn min-h-[44px] px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-base font-bold bg-white text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-50 flex items-center gap-2 transition flex-shrink-0">
+          <i class="fa-solid fa-table-columns text-sm sm:text-base"></i>
+          <span>Matriz Tri-Regional</span>
+        </button>
+        <button onclick="switchTab('evaluator')" id="tab-evaluator" class="tab-btn min-h-[44px] px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-base font-bold bg-white text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-50 flex items-center gap-2 transition flex-shrink-0">
+          <i class="fa-solid fa-graduation-cap text-sm sm:text-base"></i>
+          <span>Autoevaluación</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step by Step View -->
+    <section id="view-step-by-step" class="space-y-4 sm:space-y-6">
+
+      <!-- Mobile Step Quick Carousel (Visible only on screens < lg) -->
+      <div class="block lg:hidden bg-white border border-slate-200 rounded-2xl p-3 shadow-sm space-y-2">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase px-1">
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-list-ol text-brand-600"></i> Selector Rápido de Requisito:</span>
+          <span id="mobile-step-counter" class="text-brand-700 font-mono">Paso 1 de 10</span>
+        </div>
+        <div id="mobile-steps-carousel" class="flex gap-2 overflow-x-auto no-scrollbar pb-1 pt-0.5">
+          <!-- Mobile step pills rendered via JS -->
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+
+        <!-- Sidebar List of 10 Requirements (Desktop Only) -->
+        <div class="hidden lg:block lg:col-span-4 space-y-3">
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Índice de Requisitos Mandatorios</span>
+            <span class="text-sm text-slate-600 font-medium">Selecciona un paso para ver su fundamentación y contenido:</span>
+          </div>
+
+          <nav id="steps-list" class="space-y-2">
+            <!-- Steps will be rendered dynamically -->
+          </nav>
+        </div>
+
+        <!-- Main Card with Pedagogical Breakdown (Supports touch swipe on mobile) -->
+        <div id="swipe-container" class="lg:col-span-8 space-y-4 sm:space-y-6 touch-swipe-card">
+
+          <!-- Current Step Header & Theory -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4 sm:space-y-5">
+            
+            <!-- Mobile Swipe Notification Badge -->
+            <div class="flex items-center justify-between sm:hidden text-xs text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
+              <span class="flex items-center gap-1"><i class="fa-solid fa-hand-pointer text-brand-500"></i> Desliza para cambiar de paso</span>
+              <i class="fa-solid fa-arrows-left-right text-slate-400"></i>
+            </div>
+
+            <div class="flex items-start justify-between flex-wrap gap-2.5">
+              <div>
+                <span id="step-number-badge" class="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-md bg-brand-50 text-brand-700 border border-brand-200 text-xs font-mono font-bold uppercase">PASO 1 DE 10</span>
+                <h2 id="step-title" class="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-slate-900 mt-2 leading-tight">Propósito y Caso de Negocio (Business Case)</h2>
+              </div>
+              <span id="case-tag-indicator" class="text-xs sm:text-sm font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1.5">
+                <i class="fa-solid fa-tag text-brand-600"></i> Caso: Café Yungueño
+              </span>
+            </div>
+
+            <!-- Theory Quote Box -->
+            <div class="p-3.5 sm:p-5 rounded-xl bg-slate-50 border-l-4 border-brand-600 border-y border-r border-slate-200">
+              <div class="flex items-start gap-2.5 sm:gap-3 text-sm sm:text-base text-slate-700">
+                <i class="fa-solid fa-quote-left text-brand-600 text-base sm:text-xl flex-shrink-0 mt-0.5 sm:mt-1"></i>
+                <div class="space-y-1">
+                  <p id="step-quote" class="italic leading-relaxed font-sans font-medium text-slate-800 text-xs sm:text-base">"El negocio proporciona la justificación del proyecto, explicando por qué se emprende el proyecto..."</p>
+                  <span id="step-source" class="block font-bold text-brand-700 font-mono text-[11px] sm:text-xs md:text-sm">— Guía del PMBOK®, 7ma Ed., Pág. 34</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pedagogical Explanation -->
+            <div class="pt-3 border-t border-slate-100 text-xs sm:text-sm md:text-base text-slate-600 flex items-start gap-2.5 bg-amber-50/60 p-3 sm:p-4 rounded-xl border border-amber-200/70">
+              <i class="fa-solid fa-circle-info text-amber-600 text-base sm:text-lg mt-0.5 flex-shrink-0"></i>
+              <p id="step-didactic" class="leading-relaxed">
+                <strong>¿Por qué es indispensable?</strong> Sin una justificación cuantitativa y alineada con la estrategia corporativa, el proyecto corre el riesgo de gastar recursos en soluciones sin retorno.
+              </p>
+            </div>
+
+            <!-- SMART Methodological Didactic Card (Visible exclusively on Step 2) -->
+            <div id="step-smart-card" class="hidden mt-4 p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-indigo-50/70 via-white to-slate-50 border-2 border-indigo-200 shadow-sm space-y-4">
+              <div class="flex items-center justify-between flex-wrap gap-2 border-b border-indigo-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-lg sm:text-xl shadow-md shadow-indigo-600/20 flex-shrink-0">
+                    <i class="fa-solid fa-bullseye"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-extrabold text-base sm:text-lg text-indigo-950">
+                      Cátedra Técnica: Fundamentos de la Metodología SMART
+                    </h3>
+                    <p class="text-xs sm:text-sm text-indigo-700 font-medium">
+                      Formulación rigurosa según Gray &amp; Larson (Cap. 4, pág. 86) y G. T. Doran (1981)
+                    </p>
+                  </div>
+                </div>
+                <span class="text-[11px] sm:text-xs font-mono font-bold bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg border border-indigo-200">
+                  Regla del Qué • Cuándo • Cuánto
+                </span>
+              </div>
+
+              <!-- Theory Premise Box -->
+              <div class="p-3 sm:p-4 rounded-xl bg-white border border-indigo-100 text-xs sm:text-sm text-slate-700 space-y-1 leading-relaxed">
+                <p class="font-medium text-slate-800">
+                  <i class="fa-solid fa-book-open text-indigo-600 mr-1.5"></i>
+                  <strong>Principio rector de Gray &amp; Larson (Capítulo 4, Pág. 86):</strong>
+                  <em>"El primer paso en la definición del enfoque del proyecto es la descripción del objetivo general... El objetivo del proyecto responde a las preguntas de <strong>qué, cuándo y cuánto</strong>."</em>
+                </p>
+                <p class="text-slate-600 text-[11px] sm:text-xs pt-1 border-t border-slate-100">
+                  La sigla <strong>SMART</strong> (popularizada por George T. Doran en 1981 y referenciada en la bibliografía de ADP) asegura que los compromisos fundacionales no queden en intenciones etéreas, sino en parámetros auditables de la triple restricción.
+                </p>
+              </div>
+
+              <!-- The 5 SMART Dimensions with Guiding Questions -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3 text-xs sm:text-sm">
+                <!-- S: Specific -->
+                <div class="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-indigo-300 transition space-y-1.5 shadow-2xs">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono font-bold text-xs flex items-center justify-center">S</span>
+                    <span class="font-bold text-slate-900 font-display">Específico (Specific)</span>
+                  </div>
+                  <div class="font-semibold text-indigo-700 text-[11px] sm:text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-circle-question text-indigo-500"></i> ¿QUÉ se va a lograr exactamente?
+                  </div>
+                  <p class="text-slate-600 leading-normal text-[11px] sm:text-xs">
+                    Delimita el entregable concreto y sus funciones operativas sin vaguedad. <em>Ej.: Desarrollar un ERP agroindustrial offline-first con 5 módulos certificados.</em>
+                  </p>
+                </div>
+
+                <!-- M: Measurable -->
+                <div class="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-indigo-300 transition space-y-1.5 shadow-2xs">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono font-bold text-xs flex items-center justify-center">M</span>
+                    <span class="font-bold text-slate-900 font-display">Medible (Measurable)</span>
+                  </div>
+                  <div class="font-semibold text-indigo-700 text-[11px] sm:text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-circle-question text-indigo-500"></i> ¿CÓMO comprobaremos el éxito?
+                  </div>
+                  <p class="text-slate-600 leading-normal text-[11px] sm:text-xs">
+                    Define métricas e indicadores numéricos verificables. <em>Ej.: Disponibilidad del 99.5%, reducción del 40% en tiempos y calificación SCA &gt; 84.</em>
+                  </p>
+                </div>
+
+                <!-- A: Assignable / Achievable -->
+                <div class="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-indigo-300 transition space-y-1.5 shadow-2xs">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono font-bold text-xs flex items-center justify-center">A</span>
+                    <span class="font-bold text-slate-900 font-display">Asignable (Assignable)</span>
+                  </div>
+                  <div class="font-semibold text-indigo-700 text-[11px] sm:text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-circle-question text-indigo-500"></i> ¿QUIÉN asume la responsabilidad?
+                  </div>
+                  <p class="text-slate-600 leading-normal text-[11px] sm:text-xs">
+                    Confía la rendición de cuentas al Director del Proyecto formalmente nombrado por el Sponsor para liderar al equipo multidisciplinario.
+                  </p>
+                </div>
+
+                <!-- R: Realistic / Relevant -->
+                <div class="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-indigo-300 transition space-y-1.5 shadow-2xs">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono font-bold text-xs flex items-center justify-center">R</span>
+                    <span class="font-bold text-slate-900 font-display">Realista (Realistic)</span>
+                  </div>
+                  <div class="font-semibold text-indigo-700 text-[11px] sm:text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-circle-question text-indigo-500"></i> ¿Es FACTIBLE y ESTRATÉGICO?
+                  </div>
+                  <p class="text-slate-600 leading-normal text-[11px] sm:text-xs">
+                    Garantiza viabilidad técnica dentro de las restricciones geográficas (p. ej., caminos yungueños) y congruencia con el Caso de Negocio corporativo.
+                  </p>
+                </div>
+
+                <!-- T: Time-bound -->
+                <div class="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-indigo-300 transition space-y-1.5 shadow-2xs sm:col-span-2 lg:col-span-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono font-bold text-xs flex items-center justify-center">T</span>
+                    <span class="font-bold text-slate-900 font-display">Limitado en Tiempo (Time-bound)</span>
+                  </div>
+                  <div class="font-semibold text-indigo-700 text-[11px] sm:text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-circle-question text-indigo-500"></i> ¿CUÁNDO y por CUÁNTO se entrega?
+                  </div>
+                  <p class="text-slate-600 leading-normal text-[11px] sm:text-xs">
+                    Fija un horizonte temporal improrrogable y un techo de inversión cerrado. <em>Ej.: Culminación en 9 meses (36 semanas) antes de la cosecha 2027 con USD 75,000 autorizados.</em>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Applied Content for Current Case -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4 sm:space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3 sm:pb-4">
+              <h3 class="font-display font-bold text-base sm:text-xl text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-pen-ruler text-emerald-600 text-base sm:text-lg"></i>
+                <span>Contenido Técnico Aplicado</span>
+              </h3>
+              <span class="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wide">Formulación Oficial</span>
+            </div>
+
+            <div id="step-content-applied" class="text-sm sm:text-base md:text-lg text-slate-700 space-y-3 sm:space-y-4 leading-relaxed overflow-x-auto">
+              <!-- Content injected via JS -->
+            </div>
+
+            <!-- Interactive Quality Checklist -->
+            <div class="mt-6 pt-4 sm:mt-8 sm:pt-6 border-t border-slate-200">
+              <span class="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wider block mb-2.5 sm:mb-3">
+                <i class="fa-solid fa-clipboard-check text-brand-600 mr-1.5"></i> Criterios de Calidad y Aprobación:
+              </span>
+              <div id="step-checklist" class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-base">
+                <!-- Checklist injected via JS -->
+              </div>
+            </div>
+
+            <!-- Step Navigation Controls with Generous Touch Target Sizes -->
+            <div class="flex items-center justify-between pt-4 sm:pt-6 mt-4 border-t border-slate-200 gap-2">
+              <button onclick="prevStep()" id="btn-prev-step" class="min-h-[44px] px-4 sm:px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs sm:text-base font-bold text-slate-700 transition flex items-center gap-1.5 sm:gap-2 active:scale-95">
+                <i class="fa-solid fa-arrow-left"></i> <span class="hidden xs:inline">Anterior</span>
+              </button>
+              <span id="step-indicator-bottom" class="text-xs sm:text-base text-slate-500 font-mono font-bold">1 / 10</span>
+              <button onclick="nextStep()" id="btn-next-step" class="min-h-[44px] px-4 sm:px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-xs sm:text-base font-bold text-white transition flex items-center gap-1.5 sm:gap-2 shadow-md shadow-brand-600/20 active:scale-95">
+                <span class="hidden xs:inline">Siguiente</span> <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Document View -->
+    <section id="view-document" class="hidden space-y-4 sm:space-y-6">
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex items-center justify-between flex-wrap gap-3 shadow-sm no-print">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-lg sm:text-xl flex-shrink-0">
+            <i class="fa-solid fa-file-lines"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-sm sm:text-lg text-slate-900">Vista Ejecutiva del Acta</h3>
+            <p class="text-xs sm:text-sm text-slate-500">Documento listo para firmas institucionales</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button onclick="copyDocumentToClipboard()" class="min-h-[42px] flex-1 sm:flex-initial px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 flex items-center justify-center gap-1.5 transition">
+            <i class="fa-regular fa-clone"></i> Copiar
+          </button>
+          <button onclick="window.print()" class="min-h-[42px] flex-1 sm:flex-initial px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-600 hover:bg-brand-700 text-white flex items-center justify-center gap-1.5 shadow-sm transition">
+            <i class="fa-solid fa-file-pdf"></i> PDF / Imprimir
+          </button>
+        </div>
+      </div>
+
+      <!-- Formal Document Paper Container -->
+      <article id="formal-document-container" class="printable-document bg-white border border-slate-200 rounded-2xl p-4 sm:p-8 lg:p-14 shadow-sm space-y-6 sm:space-y-10 text-slate-800 font-sans max-w-5xl mx-auto overflow-x-hidden">
+        <!-- Rendered via JS -->
+      </article>
+    </section>
+
+    <!-- Comparative Matrix View -->
+    <section id="view-comparison" class="hidden space-y-4 sm:space-y-6">
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4 sm:space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-2.5 border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-lg sm:text-2xl font-display font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-map-location-dot text-amber-600 text-base sm:text-xl"></i>
+              <span>Matriz Comparativa Tri-Regional</span>
+            </h2>
+            <p class="text-xs sm:text-base text-slate-600 mt-0.5">Contraste entre Valles (Yungas), Altiplano (Potosí) y Amazonía (Beni/Pando).</p>
+          </div>
+          <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 font-mono font-bold border border-slate-200">3 Sectores Productivos</span>
+        </div>
+
+        <div class="overflow-x-auto -mx-4 sm:mx-0">
+          <div class="inline-block min-w-full align-middle px-4 sm:px-0">
+            <table class="w-full text-left text-xs sm:text-sm md:text-base border-collapse border border-slate-200 min-w-[640px]">
+              <thead>
+                <tr class="bg-slate-50 text-slate-800 border-b border-slate-200 font-display font-bold uppercase tracking-wider text-[11px] sm:text-xs md:text-sm">
+                  <th class="p-3 sm:p-4 border-r border-slate-200 w-1/4">Dimensión</th>
+                  <th class="p-3 sm:p-4 text-brand-700 border-r border-slate-200 w-1/4"><i class="fa-solid fa-mug-hot mr-1"></i> Café Yungueño</th>
+                  <th class="p-3 sm:p-4 text-amber-800 border-r border-slate-200 w-1/4"><i class="fa-solid fa-car-battery mr-1"></i> Litio Uyuni</th>
+                  <th class="p-3 sm:p-4 text-emerald-800 w-1/4"><i class="fa-solid fa-seedling mr-1"></i> Frutos Amazonía</th>
+                </tr>
+              </thead>
+              <tbody id="comparison-table-body" class="divide-y divide-slate-200 text-slate-700">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Self-Assessment Evaluator View -->
+    <section id="view-evaluator" class="hidden space-y-4 sm:space-y-6">
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4 sm:space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-3 border-b border-slate-200 pb-4">
+          <div>
+            <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200 uppercase tracking-wider">Taller Práctico A2.1</span>
+            <h2 class="text-lg sm:text-2xl font-display font-extrabold text-slate-900 mt-1.5">Comprobación de Calidad: Requisitos del Acta</h2>
+            <p class="text-xs sm:text-base text-slate-600 mt-0.5">Evalúe su comprensión sobre las trampas más comunes y los requisitos del Project Charter.</p>
+          </div>
+          <div id="quiz-score-badge" class="px-3.5 py-1.5 rounded-xl bg-slate-50 text-slate-800 border border-slate-200 text-sm sm:text-base font-bold shadow-sm">
+            Puntuación: <span id="quiz-score" class="text-brand-600 font-extrabold">0</span> / 4
+          </div>
+        </div>
+
+        <div id="quiz-container" class="space-y-4 sm:space-y-5">
+          <!-- Questions will be rendered via JS -->
+        </div>
+
+        <div class="p-4 sm:p-5 rounded-2xl bg-brand-50 border border-brand-200 flex items-start gap-3 sm:gap-4">
+          <i class="fa-solid fa-lightbulb text-amber-500 text-xl sm:text-2xl mt-0.5 flex-shrink-0"></i>
+          <div class="text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+            <span class="font-bold text-brand-900 block mb-1 text-sm sm:text-lg">Regla de Oro según el docente Humberto Arandia:</span>
+            "El Director de Proyecto no se auto-asigna ni inventa el presupuesto. El Acta de Constitución es un contrato de gobernanza firmado por la Alta Dirección (Sponsor) que confiere legitimidad frente a las gerencias de línea."
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl shadow-xl text-xs sm:text-base font-semibold flex items-center gap-2.5 sm:gap-3 max-w-[90vw]">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-base sm:text-lg flex-shrink-0"></i>
+    <span id="toast-msg" class="truncate">Notificación</span>
+  </div>
+
+  <footer class="no-print bg-white border-t border-slate-200 mt-auto py-4 sm:py-5 text-xs sm:text-sm text-slate-600">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
+      <div class="flex items-center gap-2 font-medium">
+        <i class="fa-solid fa-book-bookmark text-brand-600"></i>
+        <span>Universidad del Valle • Administración Estratégica de Proyectos y Negocios</span>
+      </div>
+      <div>Docente: <strong>Humberto Mario Arandia Claure</strong></div>
+      <div class="text-slate-400 font-mono text-[11px] sm:text-xs">PMBOK® 7.ª Ed. &amp; Gray &amp; Larson 4.ª Ed.</div>
+    </div>
+  </footer>
+
+  <script>
+    let currentCaseKey = 'yungas';
+    let currentStepIndex = 0;
+    let quizAnswers = {};
+
+    const STEPS = [
+      {
+        id: 1,
+        title: "Propósito, Justificación y Caso de Negocio",
+        icon: "fa-solid fa-bullseye",
+        quote: "El negocio proporciona la justificación del proyecto, explicando por qué se emprende el proyecto. Tiene su origen con los requisitos comerciales preliminares...",
+        source: "Guía del PMBOK®, 7ma Ed., Pág. 34",
+        didactic: "¿Por qué es indispensable? Sin una justificación cuantitativa que vincule el proyecto con los beneficios económicos u operacionales, se corre el riesgo de gastar presupuesto en iniciativas sin valor de retorno.",
+        checklist: [
+          "Identifica el problema o dolor crítico de negocio",
+          "Calcula beneficios cuantitativos (retorno o ahorro)",
+          "Alineado formalmente con el plan estratégico",
+          "Explica el costo de NO realizar el proyecto"
+        ]
+      },
+      {
+        id: 2,
+        title: "Objetivos Medibles del Proyecto (SMART)",
+        icon: "fa-solid fa-chart-line",
+        quote: "El primer paso en la definición del enfoque del proyecto es la descripción del objetivo general... El objetivo del proyecto responde a las preguntas de qué, cuándo y cuánto.",
+        source: "Gray & Larson, 4ta Ed., Cap. 4, Pág. 86",
+        didactic: "Evita la ambigüedad técnica. Todo objetivo debe tener parámetros concretos de término, especificaciones de desempeño y un techo presupuestario asignable.",
+        checklist: [
+          "Define el entregable concreto (Qué)",
+          "Establece una fecha límite improrrogable (Cuándo)",
+          "Determina el costo límite de culminación (Cuánto)",
+          "Adopta métricas objetivamente verificables"
+        ]
+      },
+      {
+        id: 3,
+        title: "Requisitos de Alto Nivel y Alcance del Producto",
+        icon: "fa-solid fa-cubes",
+        quote: "El alcance del producto consta de las características y funciones de un producto, servicio o resultado. El alcance del proyecto es el trabajo realizado para entregarlo...",
+        source: "Guía del PMBOK®, 7ma Ed., Pág. 53",
+        didactic: "Diferencia claramente el bien final (software, planta física, maquinaria) del esfuerzo de ingeniería, pruebas, gestión y comisionamiento necesario para construirlo.",
+        checklist: [
+          "Especifica las capacidades funcionales básicas",
+          "Distingue alcance de producto vs alcance de proyecto",
+          "Define arquitectura o diseño de sistemas inicial",
+          "Identifica estándares de calidad mandatorios"
+        ]
+      },
+      {
+        id: 4,
+        title: "Límites y Exclusiones Explícitas (Out of Scope)",
+        icon: "fa-solid fa-ban",
+        quote: "Enunciado del Alcance del Proyecto: Descripción del alcance, los entregables principales y las exclusiones del proyecto.",
+        source: "Guía del PMBOK®, 7ma Ed., Glosario, Pág. 238",
+        didactic: "Blindaje contra la corrupción del alcance (scope creep). Declarar por escrito lo que NO se entregará evita demandas legales, insatisfacción del cliente y gastos imprevistos.",
+        checklist: [
+          "Enumera entregables expresamente excluidos",
+          "Delimita las fronteras tecnológicas y geográficas",
+          "Previene falsas expectativas de los interesados",
+          "Aclara límites de soporte y mantenimiento futuro"
+        ]
+      },
+      {
+        id: 5,
+        title: "Cronograma de Hitos Principales (Milestones)",
+        icon: "fa-solid fa-calendar-check",
+        quote: "Un hecho fundamental es significativo en un proyecto que ocurre en determinado momento. El programa de los momentos importantes sólo muestra los segmentos principales de trabajo...",
+        source: "Gray & Larson, 4ta Ed., Cap. 4, Pág. 86",
+        didactic: "El acta no lleva un diagrama de Gantt de 300 tareas. Especifica eventos de duración cero que marcan el fin de fases y revisiones de compuerta (Phase Gates).",
+        checklist: [
+          "Hitos definidos con duración cero (0 días)",
+          "Fechas impuestas contractuales identificadas",
+          "Puntos de decisión o compuertas de fase (Gates)",
+          "Entregables verificables asignados a cada hito"
+        ]
+      },
+      {
+        id: 6,
+        title: "Presupuesto Preliminar y Estructura Financiera",
+        icon: "fa-solid fa-vault",
+        quote: "Presupuesto: Estimación aprobada para el proyecto o cualquier componente de la estructura de desglose del trabajo (EDT) o cualquier actividad...",
+        source: "Guía del PMBOK®, 7ma Ed., Pág. 52",
+        didactic: "Fija el techo presupuestario inicial mediante estimaciones de Orden de Magnitud (ROM) y separa las reservas para contingencias de la reserva de gestión.",
+        checklist: [
+          "Monto macro total autorizado por el sponsor",
+          "Desglose por rubros primordiales de gasto",
+          "Reserva para contingencias (riesgos conocidos)",
+          "Reserva de gestión bajo control del patrocinador"
+        ]
+      },
+      {
+        id: 7,
+        title: "Criterios de Éxito, Aprobación y Cierre",
+        icon: "fa-solid fa-award",
+        quote: "Los documentos que autorizan el proyecto intentan cuantificar los resultados deseados del mismo para permitir mediciones periódicas... antes del cierre final se revisarán.",
+        source: "Guía del PMBOK®, 7ma Ed., Pág. 47 & 70",
+        didactic: "Establece con precisión milimétrica quién debe firmar la conformidad del producto y qué parámetros numéricos certifican que el esfuerzo culminó con éxito.",
+        checklist: [
+          "Criterios de aceptación técnica cuantificados",
+          "Nombre y cargo del responsable con firma autorizada",
+          "Protocolo formal de pruebas de aceptación (UAT)",
+          "Condiciones de transferencia a operaciones"
+        ]
+      },
+      {
+        id: 8,
+        title: "Designación y Autoridad del Director del Proyecto",
+        icon: "fa-solid fa-user-tie",
+        quote: "Este documento se genera en la alta dirección y le otorga al administrador de proyecto la autoridad, por escrito, de utilizar los recursos de la organización...",
+        source: "Gray & Larson, 4ta Ed., Cap. 4, Pág. 88",
+        didactic: "El director no se auto-nombra. Requiere una delegación ejecutiva formal para negociar personal en estructuras matriciales y autorizar compras sin burocracia previa.",
+        checklist: [
+          "Nombre y perfil profesional del director",
+          "Umbral de gasto financiero autónomo sin consulta",
+          "Facultad técnica sobre arquitectura y métodos",
+          "Poder de asignación de recursos humanos y contratos"
+        ]
+      },
+      {
+        id: 9,
+        title: "Identificación Inicial de Interesados Clave",
+        icon: "fa-solid fa-users-viewfinder",
+        quote: "Identificar, analizar y comprometerse proactivamente con los interesados desde el inicio hasta el final del proyecto ayuda a facilitar el éxito.",
+        source: "Guía del PMBOK®, 7ma Ed., Pág. 31",
+        didactic: "Mapeo temprano de actores con poder o interés que pueden impulsar o vetar el proyecto. Alimenta el posterior Registro de Interesados del proceso 2.4.",
+        checklist: [
+          "Patrocinador (Sponsor) y cliente beneficiario",
+          "Líderes operativos y usuarios clave identificados",
+          "Entidades reguladoras y ambientales consideradas",
+          "Nivel preliminar de impacto e interés documentado"
+        ]
+      },
+      {
+        id: 10,
+        title: "Supuestos, Restricciones y Riesgos Globales",
+        icon: "fa-solid fa-shield-halved",
+        quote: "¿Cuál es el efecto de no realizar este proyecto? ¿Cuál es el riesgo del proyecto para nuestra organización? ¿Dónde encaja el proyecto propuesto en nuestro perfil de riesgo?",
+        source: "Gray & Larson, 4ta Ed., Ilustración 2.4, Pág. 33",
+        didactic: "Un supuesto no validado se convierte en un riesgo inminente. Debe registrarse el marco restrictivo (legal, climático, geográfico) y las amenazas de supervivencia.",
+        checklist: [
+          "Supuestos operativos críticos declarados",
+          "Restricciones rígidas e inamovibles documentadas",
+          "Riesgos de nivel macro de supervivencia del proyecto",
+          "Estrategias iniciales de contención y mitigación"
+        ]
+      }
+    ];
+
+    const CASES = {
+      yungas: {
+        name: "YUNGA-TECH ERP",
+        category: "Software Agroindustrial & Trazabilidad",
+        region: "Caranavi - Coroico, Nor y Sud Yungas (La Paz)",
+        sponsor: "Dirección de Desarrollo Productivo & Directorio AgroSoftware Solutions S.R.L.",
+        pm: "Lic. Ing. Humberto Mario Arandia Claure",
+        budget: "USD 75,000",
+        duration: "9 meses (36 semanas)",
+        badgeColor: "brand",
+        stepsData: {
+          1: `<p><strong>Problema Crítico:</strong> Los caficultores de Caranavi y Coroico pierden hasta un 30% del valor de sus microlotes de café de especialidad (variedades Geisha, Caturra y Típica) por falta de trazabilidad verificable en el beneficio húmedo y demoras burocráticas en las certificaciones orgánicas y Fairtrade.</p>
+              <p><strong>Alineación Estratégica:</strong> Consolida la Denominación de Origen del Café Yungueño para exportación directa a cafeterías de especialidad en Europa y Norteamérica.</p>
+              <p><strong>Retorno Esperado:</strong> Reducción del 40% en tiempos de acopio y pesaje en planta, eliminación de errores de liquidación monetaria a productores y acceso a primas de precio de +20% por café con puntaje SCA &gt; 84.</p>`,
+          2: `<ul class="list-disc pl-6 space-y-2">
+                <li><strong>Desempeño Técnico:</strong> Software con arquitectura <em>Offline-First</em>, sincronización automática al detectar red móvil/WiFi y disponibilidad del 99.5%.</li>
+                <li><strong>Tiempo:</strong> Implementación y puesta en marcha en 9 meses calendario exactos antes de la cosecha principal de 2027.</li>
+                <li><strong>Costo:</strong> Techo presupuestario de USD 75,000 con varianza no superior al 5% al cierre.</li>
+                <li><strong>Aceptación:</strong> Validación operativa por el 100% de los 5 centros de acopio piloto en Caranavi.</li>
+              </ul>`,
+          3: `<p><strong>Alcance del Producto:</strong> Sistema modular compuesto por:</p>
+              <ul class="list-disc pl-6 space-y-1.5">
+                <li>Módulo Fincas: Georreferenciación GPS y registro de variedades botánicas.</li>
+                <li>Módulo Beneficiado: Control de curvas de fermentación y secado solar.</li>
+                <li>Módulo Acopio: Integración con básculas digitales y liquidación en Bs.</li>
+                <li>Módulo Calidad: Ficha digital de catación según estándar SCA.</li>
+                <li>Módulo Exportación: Generador de etiquetas QR con trazabilidad de origen.</li>
+              </ul>
+              <p class="mt-2"><strong>Alcance del Proyecto:</strong> Levantamiento de procesos en campo, arquitectura de software, codificación, pruebas UAT en Caranavi y capacitación de 50 técnicos.</p>`,
+          4: `<p><strong>Exclusiones Explícitas (Out of Scope):</strong></p>
+              <ul class="list-disc pl-6 space-y-1.5 text-rose-700 font-medium">
+                <li>Dotación o compra de teléfonos celulares para los productores individuales.</li>
+                <li>Instalación de antenas o conectividad satelital rural en las comunidades.</li>
+                <li>Pago de aranceles de auditorías de certificación orgánica (el software provee la data, no sustituye al ente certificador).</li>
+                <li>Mantenimiento físico de maquinaria de despulpado o beneficio de café.</li>
+              </ul>`,
+          5: `<div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <table class="w-full text-sm text-left">
+                  <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-200">
+                    <tr><th class="p-3">Hito</th><th class="p-3">Entregable Asociado</th><th class="p-3">Fecha Estimada</th></tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200 text-slate-700">
+                    <tr><td class="p-3 font-bold text-brand-700">H1: Kickoff</td><td class="p-3">Acta firmada y Plan de Gestión Integrado</td><td class="p-3">Fin Mes 1</td></tr>
+                    <tr><td class="p-3 font-bold text-brand-700">H2: Arquitectura</td><td class="p-3">Especificación SRS y prototipo UI/UX validado</td><td class="p-3">Fin Mes 2</td></tr>
+                    <tr><td class="p-3 font-bold text-brand-700">H3: Versión Alpha</td><td class="p-3">Módulos Parcela y Acopio con Offline-Sync</td><td class="p-3">Fin Mes 5</td></tr>
+                    <tr><td class="p-3 font-bold text-brand-700">H4: Versión Beta</td><td class="p-3">Módulos Catación SCA y trazabilidad QR</td><td class="p-3">Fin Mes 7</td></tr>
+                    <tr><td class="p-3 font-bold text-brand-700">H5: Pruebas Campo</td><td class="p-3">Piloto cerrado en Caranavi con reporte UAT</td><td class="p-3">Fin Mes 8</td></tr>
+                    <tr><td class="p-3 font-bold text-brand-700">H6: Despliegue</td><td class="p-3">Puesta en producción y entrega final</td><td class="p-3">Fin Mes 9</td></tr>
+                  </tbody>
+                </table>
+              </div>`,
+          6: `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Ingeniería &amp; Desarrollo de Software</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 44,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Trabajo de Campo &amp; Pruebas en Yungas</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 11,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Infraestructura Nube &amp; Servidores (1er Año)</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 5,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Capacitación y Gestión del Cambio</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 5,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                  <span class="text-amber-800 block text-xs uppercase font-bold">Reserva para Contingencias</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 6,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-brand-50 border border-brand-200">
+                  <span class="text-brand-800 block text-xs uppercase font-bold">Reserva de Gestión (Sponsor)</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 4,000</span>
+                </div>
+              </div>
+              <p class="text-base text-slate-800 mt-3 font-semibold">PRESUPUESTO TOTAL AUTORIZADO: <span class="text-brand-700 font-mono">USD 75,000</span></p>`,
+          7: `<p><strong>Criterios de Finalización Aprobados:</strong></p>
+              <ul class="list-disc pl-6 space-y-2">
+                <li>Cumplimiento del 100% de casos de prueba del módulo de catación y liquidación.</li>
+                <li>Capacitación certificada de al menos 50 operadores de acopio y técnicos agrónomos.</li>
+                <li>Firma de conformidad de recepción definitiva por el Presidente de la Central de Cooperativas de Los Yungas y el Patrocinador de AgroSoftware.</li>
+                <li>Aprobación unánime del Comité de Control de Cambios (CCB).</li>
+              </ul>`,
+          8: `<p><strong>Director Designado:</strong> Lic. Ing. Humberto Mario Arandia Claure</p>
+              <p><strong>Límites de Autoridad Delegada:</strong></p>
+              <ul class="list-disc pl-6 space-y-2">
+                <li><strong>Autoridad Financiera:</strong> Puede comprometer gastos operativos hasta USD 5,000 por transacción sin aprobación previa; administra autónomamente la reserva para contingencias.</li>
+                <li><strong>Autoridad Técnica:</strong> Elección de lenguajes, frameworks (Flutter/Node/SQLite) y políticas de versionamiento y seguridad de base de datos.</li>
+                <li><strong>Autoridad de Equipo:</strong> Selección de ingenieros de desarrollo y contratación de consultores agronómicos en Los Yungas.</li>
+              </ul>`,
+          9: `<ul class="list-disc pl-6 space-y-2">
+                <li><strong>Asociación de Caficultores de Los Yungas:</strong> Beneficiario directo; busca agilidad en pagos y mejores precios internacionales.</li>
+                <li><strong>Catadores Q-Grader:</strong> Usuarios expertos; exigen rigor en la matriz de catación SCA.</li>
+                <li><strong>Comité Directivo AgroSoftware:</strong> Patrocinador inversor; demanda retorno y entrega en plazo pactado.</li>
+                <li><strong>Técnicos de Campo en Caranavi:</strong> Operadores que alimentarán la data en condiciones de baja señal.</li>
+                <li><strong>Brokers de Café en el Exterior:</strong> Clientes finales que consultarán los códigos QR de trazabilidad.</li>
+              </ul>`,
+          10: `<p><strong>Supuestos:</strong> Las plantas de beneficio mantendrán suministro eléctrico continuo mediante generadores durante el acopio.</p>
+              <p><strong>Restricciones:</strong> Arquitectura obligatoriamente <em>Offline-First</em> por nula conectividad en fincas remotas; presupuesto tope inflexible de USD 75,000.</p>
+              <p class="mt-2"><strong>Riesgos Clave y Mitigación:</strong></p>
+              <ul class="list-disc pl-6 space-y-2 text-amber-800">
+                <li><em>Riesgo:</em> Resistencia al cambio tecnológico de productores de avanzada edad. <em>Mitigación:</em> Talleres bilingües (aimara/español) y diseño UX simplificado por colores y símbolos.</li>
+                <li><em>Riesgo:</em> Bloqueos camineros o derrumbes por lluvias en el camino a Yungas. <em>Mitigación:</em> Simulación local en servidores de La Paz y trabajo remoto.</li>
+              </ul>`
+        }
+      },
+
+      litio: {
+        name: "LITIO-BOLITECH EDL",
+        category: "Minería Tecnológica & Procesos Químicos",
+        region: "Salar de Uyuni - Llipi, Potosí",
+        sponsor: "Comité Superior de Energías Alternativas & Directorio Industrial",
+        pm: "Ing. Metalúrgica & Procesos Rodrigo Valdivia",
+        budget: "USD 480,000",
+        duration: "14 meses (56 semanas)",
+        badgeColor: "amber",
+        stepsData: {
+          1: `<p><strong>Problema Crítico:</strong> El método tradicional de evaporación solar en piscinas en Uyuni tarda entre 12 y 18 meses, genera una recuperación menor al 40% y depende fuertemente de la meteorología andina.</p>
+              <p><strong>Alineación Estratégica:</strong> Acelerar la soberanía de industrialización del litio boliviano, demostrando la viabilidad de la tecnología de Extracción Directa de Litio (EDL) con reinyección de salmuera.</p>
+              <p><strong>Retorno Esperado:</strong> Reducir el tiempo de obtención de salmuera concentrada a menos de 48 horas con una tasa de recuperación superior al 85% y pureza grado batería (&gt;99.5% Li2CO3).</p>`,
+          2: `<ul class="list-disc pl-6 space-y-2">
+                <li><strong>Desempeño Técnico:</strong> Producción piloto continua de 50 kg/día de Carbonato de Litio Grado Batería (&gt;99.5% pureza).</li>
+                <li><strong>Tiempo:</strong> Montaje, calibración de columnas de adsorción y entrega en 14 meses.</li>
+                <li><strong>Costo:</strong> Presupuesto cerrado de USD 480,000 con fiscalización trimestral.</li>
+                <li><strong>Ambiental:</strong> Tasa de reinyección ecológica de salmuera residual no menor al 80%.</li>
+              </ul>`,
+          3: `<p><strong>Alcance del Producto:</strong> Planta piloto modular contenerizada en Llipi que incluye:</p>
+              <ul class="list-disc pl-6 space-y-1.5">
+                <li>Sistema de prefiltrado y acondicionamiento químico de salmuera de pozo.</li>
+                <li>Columnas de adsorción selectiva con resina patentada de alta selectividad.</li>
+                <li>Módulo de desorción y elución ácida.</li>
+                <li>Reactor de precipitación, cristalización y secado de Li2CO3.</li>
+              </ul>
+              <p class="mt-2"><strong>Alcance del Proyecto:</strong> Ingeniería de detalle, adquisición internacional de columnas, transporte a 3,650 msnm, montaje industrial y marcha blanca.</p>`,
+          4: `<p><strong>Exclusiones Explícitas (Out of Scope):</strong></p>
+              <ul class="list-disc pl-6 space-y-1.5 text-rose-700 font-medium">
+                <li>Construcción de la planta industrial a escala comercial (15,000 ton/año).</li>
+                <li>Tendido de líneas de alta tensión eléctrica desde la red troncal nacional.</li>
+                <li>Fabricación in situ de celdas o baterías terminadas de ion-litio.</li>
+                <li>Perforación de nuevos pozos de bombeo de salmuera profunda.</li>
+              </ul>`,
+          5: `<div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <table class="w-full text-sm text-left">
+                  <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-200">
+                    <tr><th class="p-3">Hito</th><th class="p-3">Entregable Asociado</th><th class="p-3">Fecha Estimada</th></tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200 text-slate-700">
+                    <tr><td class="p-3 font-bold text-amber-700">H1: Aprobación</td><td class="p-3">Estudio de ingeniería básica y licencia ambiental preliminar</td><td class="p-3">Fin Mes 2</td></tr>
+                    <tr><td class="p-3 font-bold text-amber-700">H2: Adquisición</td><td class="p-3">Llegada a puerto aduanero de módulos EDL especializados</td><td class="p-3">Fin Mes 6</td></tr>
+                    <tr><td class="p-3 font-bold text-amber-700">H3: Montaje</td><td class="p-3">Obras civiles e interconexión hidráulica en Llipi</td><td class="p-3">Fin Mes 9</td></tr>
+                    <tr><td class="p-3 font-bold text-amber-700">H4: Marcha Fría</td><td class="p-3">Pruebas hidrostáticas y calibración de lazo de control</td><td class="p-3">Fin Mes 11</td></tr>
+                    <tr><td class="p-3 font-bold text-amber-700">H5: Pruebas Piloto</td><td class="p-3">Obtención del primer lote de 500 kg grado batería</td><td class="p-3">Fin Mes 13</td></tr>
+                    <tr><td class="p-3 font-bold text-amber-700">H6: Recepción</td><td class="p-3">Informe final de validación y transferencia operativa</td><td class="p-3">Fin Mes 14</td></tr>
+                  </tbody>
+                </table>
+              </div>`,
+          6: `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Módulos EDL &amp; Columnas de Adsorción</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 260,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Obras Civiles, Montaje &amp; Tuberías en Llipi</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 95,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Reactivos Químicos, Pruebas &amp; Calibración</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 45,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Ingeniería, Supervisión &amp; Monitoreo Ambiental</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 35,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                  <span class="text-amber-800 block text-xs uppercase font-bold">Reserva para Contingencias</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 30,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-brand-50 border border-brand-200">
+                  <span class="text-brand-800 block text-xs uppercase font-bold">Reserva de Gestión (Patrocinador)</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 15,000</span>
+                </div>
+              </div>
+              <p class="text-base text-slate-800 mt-3 font-semibold">PRESUPUESTO TOTAL AUTORIZADO: <span class="text-amber-700 font-mono">USD 480,000</span></p>`,
+          7: `<p><strong>Criterios de Aceptación:</strong></p>
+              <ul class="list-disc pl-6 space-y-2">
+                <li>Certificado emitido por laboratorio acreditado internacional que avale &gt;99.5% de pureza en Li2CO3.</li>
+                <li>Operación ininterrumpida durante 15 días consecutivos en el Salar.</li>
+                <li>Firma de acta de recepción por el Gerente de Operaciones Industriales y el Representante del Comité de Supervisión.</li>
+              </ul>`,
+          8: `<p><strong>Director:</strong> Ing. Rodrigo Valdivia</p>
+              <p><strong>Autoridad Concedida:</strong></p>
+              <ul class="list-disc pl-6 space-y-2">
+                <li><strong>Financiera:</strong> Capacidad de aprobar compras de repuestos e insumos químicos hasta USD 15,000 por orden de compra.</li>
+                <li><strong>Técnica:</strong> Autoridad para detener la planta ante riesgos de seguridad química o fugas de salmuera.</li>
+                <li><strong>Operativa:</strong> Mando directo sobre el equipo de ingenieros de proceso, operadores mecánicos y técnicos de instrumentación.</li>
+              </ul>`,
+          9: `<ul class="list-disc pl-6 space-y-2">
+                <li><strong>Comunidades Originarias de Río Grande y Colcha K:</strong> Demandan protección del acuífero dulce y empleo local.</li>
+                <li><strong>Ministerio de Medio Ambiente y Agua:</strong> Fiscalizador de la huella hídrica y reinyección.</li>
+                <li><strong>Comité Técnico Científico del Litio:</strong> Validador de los resultados de adsorción.</li>
+                <li><strong>Fabricantes Internacionales de Resinas:</strong> Proveedores clave de tecnología crítica.</li>
+              </ul>`,
+          10: `<p><strong>Supuestos:</strong> La provisión de salmuera cruda desde los pozos de prueba se mantendrá constante a 10 m3/hora.</p>
+              <p><strong>Restricciones:</strong> Condiciones extremas de altitud (3,650 msnm), bajas temperaturas nocturnas (-15°C en invierno) y corrosividad salina extrema.</p>
+              <p class="mt-2"><strong>Riesgos Clave:</strong></p>
+              <ul class="list-disc pl-6 space-y-2 text-amber-800">
+                <li><em>Riesgo:</em> Cristalización prematura en tuberías por congelamiento nocturno. <em>Mitigación:</em> Trazado térmico eléctrico y aislamiento con lana mineral.</li>
+                <li><em>Riesgo:</em> Retrasos aduaneros en la importación de reactivos especiales. <em>Mitigación:</em> Despacho aduanero anticipado y stock de seguridad de 3 meses.</li>
+              </ul>`
+        }
+      },
+
+      amazonia: {
+        name: "AMAZON-COLDCHAIN",
+        category: "Bioeconomía & Cadena de Frío Amazónica",
+        region: "Riberalta - Cobija (Beni / Pando)",
+        sponsor: "Federación de Productores Forestales No Maderables & Fondo Verde",
+        pm: "Lic. Ing. Agroindustrial Mariana Terrazas",
+        budget: "USD 160,000",
+        duration: "10 meses (40 semanas)",
+        badgeColor: "emerald",
+        stepsData: {
+          1: `<p><strong>Problema Crítico:</strong> El açaí silvestre y la castaña fresca recolectados en la Amazonía boliviana sufren pérdidas postcosecha de hasta el 45% debido a la falta de cámaras de enfriamiento rápido en centros de recolección comunal y la rápida fermentación por el clima tropical húmedo.</p>
+              <p><strong>Alineación Estratégica:</strong> Fomentar la bioeconomía no maderable y el desarrollo sostenible de comunidades zafreras de Beni y Pando, triplicando el valor agregado retenido en origen.</p>
+              <p><strong>Retorno Esperado:</strong> Aumento del 60% en el volumen de pulpa de açaí apta para pasteurización industrial y reducción a cero del hongo aflatoxina en castaña beneficiada.</p>`,
+          2: `<ul class="list-disc pl-6 space-y-2">
+                <li><strong>Desempeño Técnico:</strong> Capacidad de enfriamiento rápido de 2 toneladas/día a -18°C mediante sistemas de refrigeración solar híbrida.</li>
+                <li><strong>Tiempo:</strong> Construcción y validación operativa en 10 meses antes de la zafra castañera.</li>
+                <li><strong>Costo:</strong> Inversión controlada de USD 160,000 con respaldo de auditoría externa.</li>
+                <li><strong>Sostenibilidad:</strong> Funcionamiento con al menos 70% de energía solar fotovoltaica.</li>
+              </ul>`,
+          3: `<p><strong>Alcance del Producto:</strong> Red modular de acopio y cadena de frío:</p>
+              <ul class="list-disc pl-6 space-y-1.5">
+                <li>Cámara de congelación rápida túnel criogénico de 2 ton/día en Riberalta.</li>
+                <li>Banco de baterías y generador solar híbrido para operación continua sin cortes.</li>
+                <li>Línea semiautomatizada de despulpadora y embolsado al vacío en atmósfera inerte.</li>
+                <li>Sistema sensorizado IoT de monitoreo de temperatura y humedad en tiempo real.</li>
+              </ul>
+              <p class="mt-2"><strong>Alcance del Proyecto:</strong> Obras civiles, montaje térmico, instalación eléctrica solar, calibración sanitaria SENASAG y capacitación de comunidades recolectoras.</p>`,
+          4: `<p><strong>Exclusiones Explícitas (Out of Scope):</strong></p>
+              <ul class="list-disc pl-6 space-y-1.5 text-rose-700 font-medium">
+                <li>Compra de camiones frigoríficos para transporte a La Paz o Santa Cruz.</li>
+                <li>Distribución y venta minorista en supermercados del eje troncal.</li>
+                <li>Extracción o comercialización de madera o recursos forestales maderables.</li>
+                <li>Construcción de caminos de acceso vecinales a las comunidades recolectoras.</li>
+              </ul>`,
+          5: `<div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <table class="w-full text-sm text-left">
+                  <thead class="bg-slate-50 text-slate-800 font-bold border-b border-slate-200">
+                    <tr><th class="p-3">Hito</th><th class="p-3">Entregable Asociado</th><th class="p-3">Fecha Estimada</th></tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200 text-slate-700">
+                    <tr><td class="p-3 font-bold text-emerald-700">H1: Plan Integral</td><td class="p-3">Acta formal, plan de adquisiciones y permisos SENASAG</td><td class="p-3">Fin Mes 2</td></tr>
+                    <tr><td class="p-3 font-bold text-emerald-700">H2: Infraestructura</td><td class="p-3">Obra civil y galpón con aislamiento de poliuretano en Riberalta</td><td class="p-3">Fin Mes 4</td></tr>
+                    <tr><td class="p-3 font-bold text-emerald-700">H3: Equipamiento Frío</td><td class="p-3">Montaje de compresores y paneles solares</td><td class="p-3">Fin Mes 7</td></tr>
+                    <tr><td class="p-3 font-bold text-emerald-700">H4: Pruebas Térmicas</td><td class="p-3">Calibración a -18°C con carga simulada de frutos</td><td class="p-3">Fin Mes 8</td></tr>
+                    <tr><td class="p-3 font-bold text-emerald-700">H5: Certificación Sanitaria</td><td class="p-3">Inspección aprobada por SENASAG e inocuidad alimentaria</td><td class="p-3">Fin Mes 9</td></tr>
+                    <tr><td class="p-3 font-bold text-emerald-700">H6: Inauguración &amp; Cierre</td><td class="p-3">Transferencia a la federación y cierre administrativo</td><td class="p-3">Fin Mes 10</td></tr>
+                  </tbody>
+                </table>
+              </div>`,
+          6: `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Equipos de Refrigeración &amp; Paneles Solares</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 85,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Obras Civiles, Aislamiento Térmico &amp; Sala Limpia</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 35,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Línea de Despulpado &amp; Empacado al Vacío</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 18,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-slate-500 block text-xs uppercase font-bold">Capacitación Sanitaria &amp; Buenas Prácticas</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 8,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                  <span class="text-amber-800 block text-xs uppercase font-bold">Reserva para Contingencias</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 9,000</span>
+                </div>
+                <div class="p-3 rounded-xl bg-brand-50 border border-brand-200">
+                  <span class="text-brand-800 block text-xs uppercase font-bold">Reserva de Gestión</span>
+                  <span class="text-slate-900 font-bold font-mono text-base">USD 5,000</span>
+                </div>
+              </div>
+              <p class="text-base text-slate-800 mt-3 font-semibold">PRESUPUESTO TOTAL AUTORIZADO: <span class="text-emerald-700 font-mono">USD 160,000</span></p>`,
+          7: `<p><strong>Criterios de Aceptación:</strong></p>
+              <ul class="list-disc pl-6 space-y-2">
+                <li>Registro Sanitario vigente otorgado por SENASAG.</li>
+                <li>Comprobación de mantenimiento térmico ininterrumpido a -18°C durante 72 horas continuas con corte forzado de red pública.</li>
+                <li>Firma de acta de entrega por la Dirección de la Federación de Zafreros y el Patrocinador del Fondo Verde.</li>
+              </ul>`,
+          8: `<p><strong>Directora:</strong> Lic. Ing. Mariana Terrazas</p>
+              <p><strong>Autoridad Asignada:</strong></p>
+              <ul class="list-disc pl-6 space-y-2">
+                <li><strong>Financiera:</strong> Aprobación de pagos a contratistas locales de construcción y fletes fluviales hasta USD 7,000.</li>
+                <li><strong>Técnica:</strong> Validación de especificaciones de refrigerantes ecológicos (R290) y layout sanitario.</li>
+                <li><strong>Organizacional:</strong> Coordinación directa con caciques comunales y líderes zafreros.</li>
+              </ul>`,
+          9: `<ul class="list-disc pl-6 space-y-2">
+                <li><strong>Comunidades Indígenas Recolectoras:</strong> Proveedoras primordiales de la materia prima silvestre.</li>
+                <li><strong>SENASAG y Ministerio de Desarrollo Rural:</strong> Ente regulador bromatológico.</li>
+                <li><strong>Empresas Exportadoras de Castaña en Riberalta:</strong> Potenciales compradoras de servicios de frío.</li>
+                <li><strong>Fondo Verde de Financiamiento:</strong> Patrocinador auditor del impacto ambiental.</li>
+              </ul>`,
+          10: `<p><strong>Supuestos:</strong> La zafra de açaí se iniciará puntualmente en noviembre y habrá disponibilidad de transporte fluvial por los ríos Beni y Madre de Dios.</p>
+              <p><strong>Restricciones:</strong> Humedad ambiental extrema (&gt;85%), temperaturas de hasta 38°C e intermitencia severa del servicio eléctrico público en Riberalta.</p>
+              <p class="mt-2"><strong>Riesgos Clave:</strong></p>
+              <ul class="list-disc pl-6 space-y-2 text-amber-800">
+                <li><em>Riesgo:</em> Inundaciones fluviales extraordinarias que impidan el acceso a las comunidades. <em>Mitigación:</em> Emplazamiento de la planta en cota alta no inundable y acopio satelital.</li>
+                <li><em>Riesgo:</em> Falla en el inversor solar por tormentas tropicales. <em>Mitigación:</em> Doble sistema de protección pararrayos y grupo electrógeno diésel de respaldo de emergencia.</li>
+              </ul>`
+        }
+      }
+    };
+
+    const QUIZ_DATA = [
+      {
+        question: "¿Quién emite formalmente el Acta de Constitución y cuál es su efecto legal/administrativo principal?",
+        options: [
+          "La emite el Director del Proyecto para autoproclamarse líder del equipo.",
+          "La emite el Patrocinador (Sponsor) o Alta Dirección, y confiere al Director la autoridad para aplicar los recursos de la organización.",
+          "La emite el cliente externo para exigir garantías comerciales y penalizaciones.",
+          "La elabora el equipo técnico como un borrador sin valor vinculante."
+        ],
+        correct: 1,
+        explanation: "Según el PMBOK 7.ª Ed. (pág. 184) y Gray & Larson (pág. 88), el Acta proviene de la alta dirección o patrocinador y otorga formalmente la autoridad al Director del Proyecto sobre los recursos corporativos."
+      },
+      {
+        question: "En el caso del software para café yungueño, ¿cuál de los siguientes elementos representa una EXCLUSIÓN EXPLÍCITA (Out of Scope)?",
+        options: [
+          "El módulo de registro de parcelas georreferenciadas.",
+          "La dotación de smartphones a todos los pequeños productores.",
+          "La pantalla de liquidación económica del acopio.",
+          "La ficha de catación según el estándar SCA."
+        ],
+        correct: 1,
+        explanation: "Definir los límites y exclusiones (Out of Scope) previene la corrupción del alcance (Scope Creep). En este caso, la dotación de hardware móvil quedó expresamente fuera de las obligaciones del proyecto."
+      },
+      {
+        question: "¿Qué diferencia al presupuesto registrado en el Acta de Constitución respecto a la Línea Base de Costos posterior?",
+        options: [
+          "El presupuesto del acta es una estimación de orden de magnitud preliminar que incluye reservas, mientras la línea base se deriva de la EDT detallada.",
+          "No existe ninguna diferencia; son exactamente la misma cifra sin reservas.",
+          "El presupuesto del acta sólo incluye los viáticos del director del proyecto.",
+          "La línea base se calcula antes de iniciar el proyecto y el acta después."
+        ],
+        correct: 0,
+        explanation: "En la fase de Inicio, el presupuesto del Acta es un techo financiero autorizado (ROM). En la fase de Planificación, mediante la EDT, se desglosa analíticamente la Línea Base de Costos (PMB)."
+      },
+      {
+        question: "¿Por qué un hito del cronograma en el Acta debe tener una duración de CERO (0) días?",
+        options: [
+          "Porque los proyectos ágiles no admiten cronogramas.",
+          "Porque un hito no consume trabajo ni recursos; representa un momento o evento significativo de control.",
+          "Porque se asume que todas las tareas ocurren en un solo instante.",
+          "Porque los directores de proyecto no conocen las duraciones reales."
+        ],
+        correct: 1,
+        explanation: "Un hito (Milestone) es un punto o evento de verificación trascendente en el tiempo (terminación de fase, aprobación legal, entrega) con duración igual a cero."
+      }
+    ];
+
+    function initApp() {
+      renderStepsList();
+      renderCurrentStep();
+      renderComparisonTable();
+      renderQuiz();
+      renderDocumentView();
+      setupTouchSwipe();
+    }
+
+    function switchCase(caseKey) {
+      currentCaseKey = caseKey;
+
+      document.querySelectorAll('.case-card').forEach(btn => {
+        btn.classList.remove('bg-brand-50/70', 'border-brand-600', 'ring-2', 'ring-brand-500/20', 'bg-amber-50/70', 'border-amber-600', 'ring-amber-500/20', 'bg-emerald-50/70', 'border-emerald-600', 'ring-emerald-500/20');
+        btn.classList.add('bg-white', 'border-slate-200');
+      });
+
+      const activeBtn = document.getElementById(`btn-case-${caseKey}`);
+      if (caseKey === 'yungas') {
+        activeBtn.classList.add('bg-brand-50/70', 'border-brand-600', 'ring-2', 'ring-brand-500/20');
+        activeBtn.classList.remove('bg-white', 'border-slate-200');
+      } else if (caseKey === 'litio') {
+        activeBtn.classList.add('bg-amber-50/70', 'border-amber-600', 'ring-2', 'ring-amber-500/20');
+        activeBtn.classList.remove('bg-white', 'border-slate-200');
+      } else {
+        activeBtn.classList.add('bg-emerald-50/70', 'border-emerald-600', 'ring-2', 'ring-emerald-500/20');
+        activeBtn.classList.remove('bg-white', 'border-slate-200');
+      }
+
+      renderCurrentStep();
+      renderDocumentView();
+      showToast(`Caso seleccionado: ${CASES[caseKey].name}`);
+    }
+
+    function switchTab(tabId) {
+      ['step-by-step', 'document', 'comparison', 'evaluator'].forEach(id => {
+        const el = document.getElementById(`view-${id}`);
+        if (el) el.classList.add('hidden');
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-600', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+      });
+
+      const activeView = document.getElementById(`view-${tabId}`);
+      if (activeView) activeView.classList.remove('hidden');
+
+      const activeTabBtn = document.getElementById(`tab-${tabId}`);
+      if (activeTabBtn) {
+        activeTabBtn.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
+        activeTabBtn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+      }
+    }
+
+    function renderStepsList() {
+      // Desktop Sidebar List
+      const desktopContainer = document.getElementById('steps-list');
+      if (desktopContainer) {
+        desktopContainer.innerHTML = STEPS.map((step, idx) => `
+          <button onclick="goToStep(${idx})" id="step-nav-${idx}" class="w-full text-left p-3.5 rounded-xl text-sm font-semibold transition flex items-center justify-between border ${idx === currentStepIndex ? 'bg-brand-600 text-white border-brand-600 shadow-md shadow-brand-600/20' : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'}">
+            <div class="flex items-center gap-3 truncate">
+              <span class="w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold text-xs ${idx === currentStepIndex ? 'bg-white text-brand-700' : 'bg-slate-100 text-slate-600'}">${step.id}</span>
+              <span class="truncate text-sm sm:text-base">${step.title}</span>
+            </div>
+            <i class="${step.icon} text-sm ${idx === currentStepIndex ? 'text-white' : 'text-slate-400'} ml-2"></i>
+          </button>
+        `).join('');
+      }
+
+      // Mobile Horizontal Carousel Pills
+      const mobileContainer = document.getElementById('mobile-steps-carousel');
+      if (mobileContainer) {
+        mobileContainer.innerHTML = STEPS.map((step, idx) => `
+          <button onclick="goToStep(${idx})" id="mobile-step-pill-${idx}" class="min-h-[38px] px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 border flex-shrink-0 ${idx === currentStepIndex ? 'bg-brand-600 text-white border-brand-600 shadow-sm' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'}">
+            <span class="w-5 h-5 rounded-full flex items-center justify-center font-mono text-[10px] ${idx === currentStepIndex ? 'bg-white text-brand-700 font-extrabold' : 'bg-slate-200 text-slate-700'}">${step.id}</span>
+            <span>Paso ${step.id}</span>
+          </button>
+        `).join('');
+
+        // Auto-scroll active pill into view on mobile
+        const activePill = document.getElementById(`mobile-step-pill-${currentStepIndex}`);
+        if (activePill) {
+          activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+
+      const counter = document.getElementById('mobile-step-counter');
+      if (counter) {
+        counter.textContent = `Paso ${currentStepIndex + 1} de 10`;
+      }
+    }
+
+    function goToStep(index) {
+      currentStepIndex = index;
+      renderStepsList();
+      renderCurrentStep();
+    }
+
+    function nextStep() {
+      if (currentStepIndex < STEPS.length - 1) {
+        goToStep(currentStepIndex + 1);
+      }
+    }
+
+    function prevStep() {
+      if (currentStepIndex > 0) {
+        goToStep(currentStepIndex - 1);
+      }
+    }
+
+    function setupTouchSwipe() {
+      const container = document.getElementById('swipe-container');
+      if (!container) return;
+
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let touchStartY = 0;
+      let touchEndY = 0;
+
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipeGesture();
+      }, { passive: true });
+
+      function handleSwipeGesture() {
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        // Ensure swipe is predominantly horizontal and passes threshold (min 50px)
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+          if (deltaX < 0) {
+            // Swiped left -> Go to Next
+            if (currentStepIndex < STEPS.length - 1) {
+              nextStep();
+              showToast(`Paso ${currentStepIndex + 1}: ${STEPS[currentStepIndex].title.substring(0, 24)}...`);
+            }
+          } else {
+            // Swiped right -> Go to Prev
+            if (currentStepIndex > 0) {
+              prevStep();
+              showToast(`Paso ${currentStepIndex + 1}: ${STEPS[currentStepIndex].title.substring(0, 24)}...`);
+            }
+          }
+        }
+      }
+    }
+
+    function renderCurrentStep() {
+      const step = STEPS[currentStepIndex];
+      const caseItem = CASES[currentCaseKey];
+
+      document.getElementById('step-number-badge').textContent = `PASO ${step.id} DE 10`;
+      document.getElementById('step-title').textContent = step.title;
+      document.getElementById('step-quote').textContent = `"${step.quote}"`;
+      document.getElementById('step-source').textContent = `— ${step.source}`;
+      document.getElementById('step-didactic').innerHTML = `<strong>¿Por qué es indispensable?</strong> ${step.didactic}`;
+      document.getElementById('case-tag-indicator').innerHTML = `<i class="fa-solid fa-tag text-brand-600"></i> ${caseItem.name} (${caseItem.region.split('-')[0]})`;
+
+      const smartCardEl = document.getElementById('step-smart-card');
+      if (smartCardEl) {
+        if (step.id === 2) {
+          smartCardEl.classList.remove('hidden');
+        } else {
+          smartCardEl.classList.add('hidden');
+        }
+      }
+
+      const contentHtml = caseItem.stepsData[step.id] || `<p class="text-slate-500">Contenido en estructuración técnica.</p>`;
+      document.getElementById('step-content-applied').innerHTML = contentHtml;
+
+      const checklistContainer = document.getElementById('step-checklist');
+      checklistContainer.innerHTML = step.checklist.map(item => `
+        <div class="flex items-start gap-2 sm:gap-2.5 p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <i class="fa-solid fa-check text-emerald-600 text-sm sm:text-base mt-0.5 flex-shrink-0"></i>
+          <span class="text-slate-800 leading-normal font-medium text-xs sm:text-base">${item}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('step-indicator-bottom').textContent = `${step.id} / ${STEPS.length}`;
+      document.getElementById('btn-prev-step').disabled = currentStepIndex === 0;
+      document.getElementById('btn-prev-step').classList.toggle('opacity-40', currentStepIndex === 0);
+      document.getElementById('btn-next-step').disabled = currentStepIndex === STEPS.length - 1;
+      document.getElementById('btn-next-step').classList.toggle('opacity-40', currentStepIndex === STEPS.length - 1);
+    }
+
+    function renderComparisonTable() {
+      const tbody = document.getElementById('comparison-table-body');
+      const dimensions = [
+        { label: "Ubicación & Entorno", get: c => c.region },
+        { label: "Propósito Estratégico", get: (c, k) => k === 'yungas' ? 'Trazabilidad y precio premium del café' : k === 'litio' ? 'Industrialización y batería Li2CO3' : 'Bioeconomía y cadena de frío de açaí' },
+        { label: "Presupuesto Aprobado", get: c => c.budget },
+        { label: "Horizonte Temporal", get: c => c.duration },
+        { label: "Director Designado", get: c => c.pm },
+        { label: "Patrocinador", get: c => c.sponsor },
+        { label: "Restricción Crítica", get: (c, k) => k === 'yungas' ? 'Conectividad nula en parcelas (Offline-first)' : k === 'litio' ? 'Altitud extrema (3,650 msnm) y heladas' : 'Humedad extrema (>85%) y cortes eléctricos' },
+        { label: "Exclusión Mandatoria", get: (c, k) => k === 'yungas' ? 'No incluye compra de smartphones a comunarios' : k === 'litio' ? 'No incluye planta industrial comercial masiva' : 'No incluye camiones refrigerados ni tala de madera' }
+      ];
+
+      tbody.innerHTML = dimensions.map(d => `
+        <tr class="hover:bg-slate-50/80 transition">
+          <td class="p-4 font-bold text-slate-900 border-r border-slate-200 bg-slate-50/50">${d.label}</td>
+          <td class="p-4 text-slate-700 border-r border-slate-200">${d.get(CASES.yungas, 'yungas')}</td>
+          <td class="p-4 text-slate-700 border-r border-slate-200">${d.get(CASES.litio, 'litio')}</td>
+          <td class="p-4 text-slate-700">${d.get(CASES.amazonia, 'amazonia')}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = QUIZ_DATA.map((q, qIndex) => `
+        <div class="p-5 sm:p-6 rounded-2xl bg-slate-50/60 border border-slate-200 space-y-4">
+          <div class="flex items-start gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-100 text-brand-700 font-mono text-sm flex items-center justify-center font-bold mt-0.5 flex-shrink-0">${qIndex + 1}</span>
+            <p class="font-bold text-base sm:text-lg text-slate-900 leading-snug">${q.question}</p>
+          </div>
+          <div class="space-y-2 sm:pl-10">
+            ${q.options.map((opt, oIndex) => `
+              <label onclick="handleQuizAnswer(${qIndex}, ${oIndex})" id="quiz-opt-${qIndex}-${oIndex}" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-sm sm:text-base text-slate-700 cursor-pointer transition">
+                <input type="radio" name="question-${qIndex}" class="accent-brand-600 scale-110">
+                <span>${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div id="quiz-feedback-${qIndex}" class="hidden sm:ml-10 text-sm sm:text-base p-3.5 rounded-xl"></div>
+        </div>
+      `).join('');
+    }
+
+    function handleQuizAnswer(qIndex, selectedOption) {
+      quizAnswers[qIndex] = selectedOption;
+      const q = QUIZ_DATA[qIndex];
+      const feedbackEl = document.getElementById(`quiz-feedback-${qIndex}`);
+
+      q.options.forEach((_, optIdx) => {
+        const optEl = document.getElementById(`quiz-opt-${qIndex}-${optIdx}`);
+        optEl.classList.remove('border-emerald-600', 'bg-emerald-50', 'text-emerald-900', 'border-rose-500', 'bg-rose-50', 'text-rose-900');
+      });
+
+      const chosenOptEl = document.getElementById(`quiz-opt-${qIndex}-${selectedOption}`);
+
+      if (selectedOption === q.correct) {
+        chosenOptEl.classList.add('border-emerald-600', 'bg-emerald-50', 'text-emerald-900');
+        feedbackEl.className = "sm:ml-10 text-sm sm:text-base p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 mt-2 font-medium";
+        feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-2 text-lg"></i> <strong>¡Correcto!</strong> ${q.explanation}`;
+      } else {
+        chosenOptEl.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-900');
+        feedbackEl.className = "sm:ml-10 text-sm sm:text-base p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 mt-2 font-medium";
+        feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 mr-2 text-lg"></i> <strong>Incorrecto.</strong> ${q.explanation}`;
+      }
+      feedbackEl.classList.remove('hidden');
+
+      let score = 0;
+      Object.keys(quizAnswers).forEach(idx => {
+        if (quizAnswers[idx] === QUIZ_DATA[idx].correct) score++;
+      });
+      document.getElementById('quiz-score').textContent = score;
+    }
+
+    function renderDocumentView() {
+      const c = CASES[currentCaseKey];
+      const container = document.getElementById('formal-document-container');
+
+      container.innerHTML = `
+        <!-- Document Header -->
+        <div class="border-b-2 border-slate-300 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <span class="text-xs sm:text-sm font-mono uppercase tracking-widest text-brand-700 font-bold">UNIVERSIDAD DEL VALLE • FACULTAD DE TECNOLOGÍA</span>
+            <h1 class="text-2xl sm:text-4xl font-display font-extrabold text-slate-900 mt-1 uppercase">ACTA DE CONSTITUCIÓN DEL PROYECTO</h1>
+            <p class="text-base text-slate-600 font-semibold mt-1">${c.name} • ${c.category}</p>
+          </div>
+          <div class="text-left sm:text-right font-mono text-xs sm:text-sm text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div><strong>CÓDIGO:</strong> CHARTER-BOL-${currentCaseKey.toUpperCase()}</div>
+            <div><strong>FECHA:</strong> 09 de Septiembre de 2026</div>
+            <div><strong>VERSIÓN:</strong> 1.0 (Aprobada)</div>
+          </div>
+        </div>
+
+        <!-- Meta Table -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-200 text-sm">
+          <div>
+            <span class="text-slate-500 block uppercase font-mono text-xs font-bold">Patrocinador Principal</span>
+            <span class="font-bold text-slate-900">${c.sponsor}</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block uppercase font-mono text-xs font-bold">Director del Proyecto</span>
+            <span class="font-bold text-brand-700">${c.pm}</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block uppercase font-mono text-xs font-bold">Presupuesto Autorizado</span>
+            <span class="font-extrabold text-emerald-700 font-mono">${c.budget}</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block uppercase font-mono text-xs font-bold">Plazo Contractual</span>
+            <span class="font-bold text-amber-700">${c.duration}</span>
+          </div>
+        </div>
+
+        <!-- 10 Formal Sections -->
+        <div class="space-y-8 text-base leading-relaxed text-slate-700">
+
+          <!-- Section 1 -->
+          <section class="space-y-3">
+            <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+              <span class="text-brand-600 font-mono">1.0</span> Propósito, Justificación y Caso de Negocio
+            </h2>
+            ${c.stepsData[1]}
+          </section>
+
+          <!-- Section 2 -->
+          <section class="space-y-3">
+            <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+              <span class="text-brand-600 font-mono">2.0</span> Objetivos Medibles del Proyecto (SMART)
+            </h2>
+            ${c.stepsData[2]}
+          </section>
+
+          <!-- Section 3 & 4 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <section class="space-y-3">
+              <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+                <span class="text-brand-600 font-mono">3.0</span> Requisitos de Alto Nivel &amp; Alcance
+              </h2>
+              ${c.stepsData[3]}
+            </section>
+            <section class="space-y-3">
+              <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+                <span class="text-brand-600 font-mono">4.0</span> Límites y Exclusiones (Out of Scope)
+              </h2>
+              ${c.stepsData[4]}
+            </section>
+          </div>
+
+          <!-- Section 5 -->
+          <section class="space-y-3">
+            <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+              <span class="text-brand-600 font-mono">5.0</span> Cronograma de Hitos Principales
+            </h2>
+            ${c.stepsData[5]}
+          </section>
+
+          <!-- Section 6 -->
+          <section class="space-y-3">
+            <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+              <span class="text-brand-600 font-mono">6.0</span> Presupuesto Preliminar Autorizado
+            </h2>
+            ${c.stepsData[6]}
+          </section>
+
+          <!-- Section 7 & 8 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <section class="space-y-3">
+              <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+                <span class="text-brand-600 font-mono">7.0</span> Criterios de Éxito y Aprobación
+              </h2>
+              ${c.stepsData[7]}
+            </section>
+            <section class="space-y-3">
+              <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+                <span class="text-brand-600 font-mono">8.0</span> Designación y Autoridad del DP
+              </h2>
+              ${c.stepsData[8]}
+            </section>
+          </div>
+
+          <!-- Section 9 & 10 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <section class="space-y-3">
+              <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+                <span class="text-brand-600 font-mono">9.0</span> Identificación de Interesados Clave
+              </h2>
+              ${c.stepsData[9]}
+            </section>
+            <section class="space-y-3">
+              <h2 class="text-lg sm:text-xl font-display font-bold text-slate-900 border-b border-slate-200 pb-2 flex items-center gap-2">
+                <span class="text-brand-600 font-mono">10.0</span> Supuestos, Restricciones y Riesgos
+              </h2>
+              ${c.stepsData[10]}
+            </section>
+          </div>
+
+        </div>
+
+        <!-- Signature Block -->
+        <div class="pt-12 border-t-2 border-slate-300 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center text-sm">
+          <div class="space-y-2">
+            <div class="border-b border-slate-400 pb-10"></div>
+            <span class="font-bold text-slate-900 block text-base">${c.sponsor}</span>
+            <span class="text-slate-500 font-medium">Patrocinador Principal (Sponsor)</span>
+          </div>
+          <div class="space-y-2">
+            <div class="border-b border-slate-400 pb-10"></div>
+            <span class="font-bold text-slate-900 block text-base">${c.pm}</span>
+            <span class="text-slate-500 font-medium">Director del Proyecto Asignado</span>
+          </div>
+          <div class="space-y-2">
+            <div class="border-b border-slate-400 pb-10"></div>
+            <span class="font-bold text-slate-900 block text-base">Comité de Auditoría UNIVALLE</span>
+            <span class="text-slate-500 font-medium">Cátedra ADP • Ing. Humberto Arandia</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyDocumentToClipboard() {
+      const docEl = document.getElementById('formal-document-container');
+      const textToCopy = docEl.innerText || docEl.textContent;
+
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = textToCopy;
+      tempTextArea.style.position = 'fixed';
+      tempTextArea.style.opacity = '0';
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          showToast("¡Acta de Constitución copiada al portapapeles!");
+        } else {
+          showToast("No se pudo copiar automáticamente.");
+        }
+      } catch (err) {
+        showToast("Error al copiar documento.");
+      } finally {
+        document.body.removeChild(tempTextArea);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const msgEl = document.getElementById('toast-msg');
+      msgEl.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    window.onload = function() {
+      initApp();
+    };
+  </script>
+</body>
+</html>
