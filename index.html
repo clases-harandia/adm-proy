@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass Interactiva: Valor del Dinero en el Tiempo y VAN</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#16a34a',
+                            600: '#15803d',
+                            700: '#166534',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth light-mode scrollbars */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .math-variable {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            touch-action: manipulation;
+        }
+        .math-variable:hover, .math-variable:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen selection:bg-emerald-200 selection:text-emerald-950">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/90 border-b border-slate-200 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center shadow-md shadow-emerald-500/20 text-white flex-shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <div class="min-w-0">
+                    <span class="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-emerald-700 block truncate">Gestión de Proyectos & Finanzas</span>
+                    <h1 class="text-sm sm:text-base md:text-lg font-extrabold text-slate-900 tracking-tight truncate">Valor en el Tiempo y VAN Didáctico</h1>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center space-x-1 text-sm font-medium">
+                <a href="#modulo-1" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">1. Intuición</a>
+                <a href="#modulo-2" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">2. Fórmulas</a>
+                <a href="#modulo-3" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">3. Simulador VA ↔ VF</a>
+                <a href="#modulo-4" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">4. Puente al VAN</a>
+                <a href="#modulo-5" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold shadow-sm hover:bg-emerald-700 transition-all">5. Evaluador de Proyectos</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileNav()" class="lg:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 bg-white/95 px-4 pt-2 pb-4 space-y-1 shadow-lg">
+            <a href="#modulo-1" onclick="toggleMobileNav()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100">1. Intuición y Concepto</a>
+            <a href="#modulo-2" onclick="toggleMobileNav()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100">2. Fórmulas y Variables</a>
+            <a href="#modulo-3" onclick="toggleMobileNav()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100">3. Simulador Dinámico VA ↔ VF</a>
+            <a href="#modulo-4" onclick="toggleMobileNav()" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100">4. Fundamento del VAN</a>
+            <a href="#modulo-5" onclick="toggleMobileNav()" class="block px-3 py-2 rounded-lg text-sm font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">5. Evaluador de Proyectos</a>
+        </div>
+    </header>
+
+    <!-- Hero / Pedagogical Intro Section -->
+    <section class="relative overflow-hidden pt-8 sm:pt-14 pb-12 sm:pb-16 bg-gradient-to-b from-white via-slate-50 to-slate-100 border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-100/70 border border-emerald-200 text-emerald-800 text-xs font-bold mb-4 sm:mb-6 shadow-xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Guía Pedagógica Paso a Paso para Directores de Proyecto</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight sm:leading-tight mb-4 sm:mb-6">
+                Aprende a valorar proyectos <br class="hidden sm:inline">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600">
+                    desde el valor del dinero hasta el cálculo del VAN
+                </span>
+            </h2>
+            <p class="text-sm sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
+                En administración y evaluación de proyectos, <strong>un dólar hoy nunca equivale a un dólar en el futuro</strong>. Comprenderemos primero cómo y por qué el dinero viaja en el tiempo y luego calcularemos el <strong>Valor Actual Neto (VAN)</strong> para fundamentar decisiones ejecutivas con rigor técnico.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto text-left">
+                <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-start space-x-3">
+                    <span class="text-2xl font-black text-emerald-600">01</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">Valor Actual (VA)</h4>
+                        <p class="text-xs text-slate-500 mt-1">El valor presente de un flujo prometido en el futuro.</p>
+                    </div>
+                </div>
+                <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-start space-x-3">
+                    <span class="text-2xl font-black text-indigo-600">02</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">Tasa & Plazo (i, n)</h4>
+                        <p class="text-xs text-slate-500 mt-1">El costo de oportunidad y la duración del ciclo de inversión.</p>
+                    </div>
+                </div>
+                <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex items-start space-x-3">
+                    <span class="text-2xl font-black text-amber-600">03</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">Criterio VAN</h4>
+                        <p class="text-xs text-slate-500 mt-1">La regla de oro para decidir si un proyecto crea o destruye valor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 1: La Intuición del Valor en el Tiempo -->
+    <section id="modulo-1" class="py-10 sm:py-16 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="bg-white rounded-3xl p-5 sm:p-10 border border-slate-200 shadow-md">
+            <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-100 gap-3">
+                <div>
+                    <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">Módulo 1: Fundamento Pedagógico</span>
+                    <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mt-2">¿Por qué $1,000 hoy valen más que $1,000 dentro de 3 años?</h3>
+                </div>
+                <div class="inline-flex items-center self-start md:self-auto px-3 py-1.5 rounded-full bg-slate-100 text-xs font-medium text-slate-700 border border-slate-200">
+                    💡 Principio Universal de Finanzas
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-8">
+                <!-- Pillar 1 -->
+                <div class="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/90 hover:border-emerald-300 hover:bg-emerald-50/30 transition-all">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-3 shadow-xs">
+                        📈
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 mb-1.5">1. Costo de Oportunidad</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Tener el capital hoy permite invertirlo en proyectos productivos, deuda soberana o fondos a una <strong>tasa de interés (i)</strong>. Recibirlo más tarde significa perder esos rendimientos acumulados.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/90 hover:border-indigo-300 hover:bg-indigo-50/30 transition-all">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xl mb-3 shadow-xs">
+                        🛒
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 mb-1.5">2. Pérdida de Poder Adquisitivo</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Por la inflación, los precios de suministros, sueldos y maquinaria tienden a incrementarse. Los $1,000 de dentro de 3 años comprarán menos insumos que hoy.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/90 hover:border-amber-300 hover:bg-amber-50/30 transition-all">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-xl mb-3 shadow-xs">
+                        ⚠️
+                    </div>
+                    <h4 class="text-base font-bold text-slate-900 mb-1.5">3. Incertidumbre y Riesgo</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        El dinero en mano hoy tiene certidumbre plena. Cualquier promesa de pago futuro conlleva la probabilidad de retrasos, quiebras o cambios regulatorios imprevistos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conceptual Visual Comparison -->
+            <div class="mt-8 bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200">
+                <h5 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Los dos sentidos temporales del cálculo</h5>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-white border border-emerald-200 shadow-xs border-l-4 border-l-emerald-600">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-emerald-800 text-sm">Capitalización (Presente ➔ Futuro)</span>
+                            <span class="text-[11px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">VA ➔ VF</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2">
+                            Añadimos intereses periódicos sobre el capital acumulado. El monto inicial crece con el tiempo.
+                        </p>
+                        <div class="mt-3 font-mono text-xs bg-slate-100 p-2.5 rounded-lg text-emerald-800 font-semibold border border-slate-200">
+                            VF = VA × (1 + i)ⁿ
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-white border border-indigo-200 shadow-xs border-l-4 border-l-indigo-600">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-indigo-800 text-sm">Descuento o Actualización (Futuro ➔ Presente)</span>
+                            <span class="text-[11px] font-semibold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded">VF ➔ VA</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-2">
+                            Restamos el costo del tiempo y del capital. Traemos un flujo futuro al valor equivalente de hoy.
+                        </p>
+                        <div class="mt-3 font-mono text-xs bg-slate-100 p-2.5 rounded-lg text-indigo-800 font-semibold border border-slate-200">
+                            VA = VF / (1 + i)ⁿ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 2: Fórmulas y Variables Explicadas -->
+    <section id="modulo-2" class="py-8 sm:py-14 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8">
+            <span class="text-xs font-bold text-indigo-700 tracking-wider uppercase bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-200">Módulo 2: Desglose de Parámetros</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Anatomía Interactiva de la Fórmula</h3>
+            <p class="text-slate-600 text-xs sm:text-sm max-w-2xl mx-auto mt-1">
+                Toca o haz clic en cualquier variable para entender su significado financiero y su impacto en la dirección de proyectos.
+            </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-5 sm:p-8 shadow-md">
+            <!-- Big Interactive Formula Box -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-4 py-6 px-3 bg-slate-50 rounded-2xl border border-slate-200 mb-6 text-xl sm:text-3xl font-mono select-none">
+                <!-- VF -->
+                <button onclick="selectFormulaTerm('VF')" id="term-VF" class="math-variable px-3 py-2 rounded-xl bg-emerald-100 border-2 border-emerald-500 text-emerald-800 font-bold hover:bg-emerald-200 transition-colors">
+                    VF
+                </button>
+                <span class="text-slate-400 font-bold">=</span>
+                <!-- VA -->
+                <button onclick="selectFormulaTerm('VA')" id="term-VA" class="math-variable px-3 py-2 rounded-xl bg-indigo-100 border-2 border-indigo-400 text-indigo-800 font-bold hover:bg-indigo-200 transition-colors">
+                    VA
+                </button>
+                <span class="text-slate-400 font-bold">×</span>
+                <span class="text-slate-600 font-bold">( 1 + </span>
+                <!-- i -->
+                <button onclick="selectFormulaTerm('i')" id="term-i" class="math-variable px-3 py-2 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-800 font-bold hover:bg-amber-200 transition-colors">
+                    i
+                </button>
+                <span class="text-slate-600 font-bold"> )</span>
+                <!-- n -->
+                <sup class="inline-block -mt-5">
+                    <button onclick="selectFormulaTerm('n')" id="term-n" class="math-variable px-2.5 py-1 rounded-lg bg-purple-100 border-2 border-purple-400 text-purple-800 font-bold hover:bg-purple-200 transition-colors text-base sm:text-xl">
+                        n
+                    </button>
+                </sup>
+            </div>
+
+            <!-- Dynamic explanation box -->
+            <div id="formula-explanation-box" class="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 transition-all duration-300">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span id="term-badge" class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-emerald-600 text-white shadow-xs">VF</span>
+                    <h4 id="term-title" class="text-base sm:text-lg font-bold text-slate-900">Valor Futuro (Future Value)</h4>
+                </div>
+                <p id="term-desc" class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                    Es la cantidad total a la que crecerá un capital disponible hoy después de transcurridos periodos ganando una tasa compuesta.
+                </p>
+                <div class="mt-4 pt-3 border-t border-slate-200 flex flex-wrap gap-2 text-xs">
+                    <span class="text-slate-600"><strong>En Proyectos:</strong> <span id="term-pm-role" class="text-slate-800">El valor acumulado o monto recuperable al concluir el horizonte temporal establecido.</span></span>
+                </div>
+            </div>
+
+            <!-- Grid of quick summary selectors -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+                <button onclick="selectFormulaTerm('VA')" class="p-3 bg-white text-left rounded-xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/20 transition-all">
+                    <span class="text-xs font-bold text-indigo-700 block">VA (Presente)</span>
+                    <span class="text-[11px] text-slate-500 line-clamp-1">Poder del dinero hoy</span>
+                </button>
+                <button onclick="selectFormulaTerm('VF')" class="p-3 bg-white text-left rounded-xl border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/20 transition-all">
+                    <span class="text-xs font-bold text-emerald-700 block">VF (Futuro)</span>
+                    <span class="text-[11px] text-slate-500 line-clamp-1">Monto con intereses</span>
+                </button>
+                <button onclick="selectFormulaTerm('i')" class="p-3 bg-white text-left rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/20 transition-all">
+                    <span class="text-xs font-bold text-amber-700 block">i (Tasa)</span>
+                    <span class="text-[11px] text-slate-500 line-clamp-1">Costo de oportunidad</span>
+                </button>
+                <button onclick="selectFormulaTerm('n')" class="p-3 bg-white text-left rounded-xl border border-slate-200 hover:border-purple-400 hover:bg-purple-50/20 transition-all">
+                    <span class="text-xs font-bold text-purple-700 block">n (Periodos)</span>
+                    <span class="text-[11px] text-slate-500 line-clamp-1">Años o ciclos evaluados</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 3: Simulador Didáctico VA ↔ VF Periodo por Periodo -->
+    <section id="modulo-3" class="py-8 sm:py-14 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="bg-white border border-slate-200 rounded-3xl p-5 sm:p-10 shadow-md">
+            <div class="mb-6 sm:mb-8">
+                <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">Módulo 3: Experimentación Dinámica</span>
+                <h3 class="text-xl sm:text-3xl font-extrabold text-slate-900 mt-2">Simulador de Capitalización y Descuento Paso a Paso</h3>
+                <p class="text-slate-600 text-xs sm:text-sm mt-1">
+                    Modifica los deslizadores y observa el comportamiento del interés compuesto tanto hacia el futuro como hacia el presente.
+                </p>
+            </div>
+
+            <!-- Controls and View Selector -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                <!-- Control Panel (Col-span 5 on desktop) -->
+                <div class="lg:col-span-5 bg-slate-50 p-5 sm:p-6 rounded-2xl border border-slate-200 space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Sentido del Cálculo</label>
+                        <div class="grid grid-cols-2 gap-2 p-1 bg-white rounded-xl border border-slate-200">
+                            <button id="btn-mode-vf" onclick="setSimMode('VF')" class="py-2.5 px-2 text-xs font-bold rounded-lg bg-emerald-600 text-white shadow-xs transition-all">
+                                Calcular VF (Futuro)
+                            </button>
+                            <button id="btn-mode-va" onclick="setSimMode('VA')" class="py-2.5 px-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+                                Calcular VA (Descontar)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Input 1: Capital Base -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label id="lbl-sim-amount" class="text-xs sm:text-sm font-bold text-slate-800">Valor Actual (VA) Inicial:</label>
+                            <span id="txt-sim-amount" class="text-xs sm:text-sm font-mono font-bold text-emerald-700 bg-white px-2 py-0.5 rounded border border-slate-200">$1,000.00</span>
+                        </div>
+                        <input type="range" id="input-sim-amount" min="100" max="10000" step="50" value="1000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="updateSim()">
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-1 font-mono">
+                            <span>$100</span>
+                            <span>$5,000</span>
+                            <span>$10,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Input 2: Tasa de Interés -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="text-xs sm:text-sm font-bold text-slate-800">Tasa Anual (i):</label>
+                            <span id="txt-sim-rate" class="text-xs sm:text-sm font-mono font-bold text-amber-700 bg-white px-2 py-0.5 rounded border border-slate-200">10.0%</span>
+                        </div>
+                        <input type="range" id="input-sim-rate" min="1" max="40" step="0.5" value="10" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="updateSim()">
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-1 font-mono">
+                            <span>1% (Baja)</span>
+                            <span>15% (Media)</span>
+                            <span>40% (Alta)</span>
+                        </div>
+                    </div>
+
+                    <!-- Input 3: Periodos -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="text-xs sm:text-sm font-bold text-slate-800">Horizonte (n periodos):</label>
+                            <span id="txt-sim-periods" class="text-xs sm:text-sm font-mono font-bold text-purple-700 bg-white px-2 py-0.5 rounded border border-slate-200">4 años</span>
+                        </div>
+                        <input type="range" id="input-sim-periods" min="1" max="10" step="1" value="4" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-purple-600" oninput="updateSim()">
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-1 font-mono">
+                            <span>1 año</span>
+                            <span>5 años</span>
+                            <span>10 años</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Preset Buttons -->
+                    <div class="pt-3 border-t border-slate-200">
+                        <span class="text-xs font-bold text-slate-600 block mb-2">Escenarios didácticos rápidos:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <button onclick="applyPreset(1000, 5, 3)" class="px-2.5 py-1 text-xs rounded-lg bg-white border border-slate-200 hover:border-emerald-500 text-slate-700 hover:bg-emerald-50/40 transition-colors">Plazo Fijo (5%)</button>
+                            <button onclick="applyPreset(2000, 12, 5)" class="px-2.5 py-1 text-xs rounded-lg bg-white border border-slate-200 hover:border-emerald-500 text-slate-700 hover:bg-emerald-50/40 transition-colors">Industrial (12%)</button>
+                            <button onclick="applyPreset(500, 25, 4)" class="px-2.5 py-1 text-xs rounded-lg bg-white border border-slate-200 hover:border-emerald-500 text-slate-700 hover:bg-emerald-50/40 transition-colors">Startup (25%)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualization & Step-by-Step Breakdown (Col-span 7) -->
+                <div class="lg:col-span-7 flex flex-col justify-between space-y-5">
+                    <!-- High level summary cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                            <span class="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Monto Base</span>
+                            <div id="res-initial" class="text-lg sm:text-2xl font-black text-indigo-700 mt-1">$1,000.00</div>
+                            <span class="text-[11px] text-slate-500" id="res-initial-sub">En Periodo 0 (Hoy)</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                            <span class="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Factor Temporal</span>
+                            <div id="res-factor" class="text-lg sm:text-2xl font-black text-purple-700 mt-1">1.4641x</div>
+                            <span class="text-[11px] text-slate-500">(1 + i)ⁿ</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 shadow-2xs">
+                            <span class="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Resultado Calculado</span>
+                            <div id="res-final" class="text-lg sm:text-2xl font-black text-emerald-700 mt-1">$1,464.10</div>
+                            <span class="text-[11px] text-slate-500" id="res-final-sub">En Periodo n</span>
+                        </div>
+                    </div>
+
+                    <!-- Step-by-step Interactive Timeline Table -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 p-4 sm:p-5 overflow-hidden">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-3 border-b border-slate-200 gap-2">
+                            <h4 class="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <span>🗓️</span> Cronología Didáctica Periodo a Periodo
+                            </h4>
+                            <span class="text-[11px] text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-full font-medium self-start sm:self-auto">Interés compuesto</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-200 text-slate-500 font-semibold">
+                                        <th class="py-2 px-2.5">Periodo (t)</th>
+                                        <th class="py-2 px-2.5">Saldo Inicial</th>
+                                        <th class="py-2 px-2.5">Interés Generado</th>
+                                        <th class="py-2 px-2.5">Saldo Final</th>
+                                        <th class="py-2 px-2.5">Fórmula</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sim-timeline-body" class="divide-y divide-slate-200/80 font-mono text-slate-700">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Responsive Chart Container -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 p-4">
+                        <div class="h-44 sm:h-48 w-full">
+                            <canvas id="canvas-sim-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 4: El Gran Salto al VAN -->
+    <section id="modulo-4" class="py-10 sm:py-16 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="border border-slate-200 rounded-3xl p-5 sm:p-10 bg-gradient-to-br from-white via-slate-50 to-emerald-50/30 shadow-md">
+            <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
+                <span class="text-xs font-bold text-emerald-800 tracking-wider uppercase bg-emerald-100 px-3 py-1 rounded-md">Módulo 4: El Vínculo Pedagógico</span>
+                <h3 class="text-2xl sm:text-4xl font-black text-slate-900 mt-2.5">¿Cómo pasamos de descontar un solo pago a evaluar un proyecto entero con el VAN?</h3>
+                <p class="text-slate-600 text-xs sm:text-base mt-3 leading-relaxed">
+                    Un proyecto real no produce un único importe. Requiere un desembolso inicial hoy (Periodo 0) y va generando <strong>flujos de caja netos periódicos</strong> a lo largo de varios años.
+                </p>
+            </div>
+
+            <!-- Conceptual Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
+                <div class="bg-white p-5 rounded-2xl border border-rose-200 shadow-xs relative">
+                    <span class="absolute top-3 right-3 text-[11px] bg-rose-100 text-rose-800 font-mono font-bold px-2 py-0.5 rounded">Momento 0 (Hoy)</span>
+                    <div class="text-2xl mb-2">💸</div>
+                    <h4 class="font-bold text-slate-900 text-sm sm:text-base">Inversión Inicial (-I₀)</h4>
+                    <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        Desembolso presente en capital de trabajo, equipos o licencias. Es un <strong>flujo negativo (-)</strong> que se paga de inmediato.
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-indigo-200 shadow-xs relative">
+                    <span class="absolute top-3 right-3 text-[11px] bg-indigo-100 text-indigo-800 font-mono font-bold px-2 py-0.5 rounded">Años 1, 2, ... n</span>
+                    <div class="text-2xl mb-2">💰 ➔ ⏳ ➔ 🏛️</div>
+                    <h4 class="font-bold text-slate-900 text-sm sm:text-base">Flujos Descontados</h4>
+                    <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        Cada año el proyecto rinde beneficios netos. Como ocurren en fechas distintas, <strong>se descuentan uno por uno</strong> usando la tasa exigida (r).
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-emerald-200 shadow-xs relative">
+                    <span class="absolute top-3 right-3 text-[11px] bg-emerald-100 text-emerald-800 font-mono font-bold px-2 py-0.5 rounded">La Suma Neta</span>
+                    <div class="text-2xl mb-2">⚖️</div>
+                    <h4 class="font-bold text-slate-900 text-sm sm:text-base">VAN = Riqueza Creada</h4>
+                    <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        Sumamos todos los flujos traídos al presente y restamos la inversión inicial. Representa el beneficio económico neto por encima de la tasa mínima exigida.
+                    </p>
+                </div>
+            </div>
+
+            <!-- The Big VAN Formula Banner -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-8 text-center max-w-4xl mx-auto shadow-xs">
+                <span class="text-xs font-mono uppercase tracking-widest text-emerald-700 font-bold block mb-1">Fórmula Maestra del Valor Actual Neto (VAN / NPV)</span>
+                <div class="font-mono text-xl sm:text-3xl font-black text-slate-900 my-3 overflow-x-auto py-2">
+                    <span class="text-emerald-700">VAN</span> = 
+                    <span class="text-rose-600">-I<sub>0</sub></span> + 
+                    <span class="text-indigo-600 font-serif">∑</span> 
+                    <span class="inline-block align-middle text-left ml-2">
+                        <span class="block border-b border-slate-300 pb-1 text-indigo-700 font-bold">FC<sub>t</sub></span>
+                        <span class="block pt-1 text-amber-700">(1 + r)<sup>t</sup></span>
+                    </span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs font-mono text-slate-600 mt-4 pt-4 border-t border-slate-200">
+                    <div><strong class="text-rose-600">-I₀</strong>: Inversión en Momento 0</div>
+                    <div><strong class="text-indigo-700">FCₜ</strong>: Flujo neto en periodo t</div>
+                    <div><strong class="text-amber-700">r</strong>: Tasa de descuento requerida</div>
+                    <div><strong class="text-purple-700">t</strong>: Número del periodo evaluado</div>
+                </div>
+            </div>
+
+            <!-- Decision Rule: The Project Manager's Compass -->
+            <div class="mt-8">
+                <h4 class="text-center font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider mb-4">Criterio Ejecutivo de Decisión</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 flex items-start space-x-3">
+                        <span class="text-2xl">✅</span>
+                        <div>
+                            <span class="font-bold text-emerald-900 text-xs sm:text-sm block">VAN > 0 : ¡ACEPTAR!</span>
+                            <p class="text-xs text-emerald-800 mt-0.5 leading-tight">Supera el costo de capital exigido y añade valor patrimonial al negocio.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-100 border border-slate-300 flex items-start space-x-3">
+                        <span class="text-2xl">⚖️</span>
+                        <div>
+                            <span class="font-bold text-slate-800 text-xs sm:text-sm block">VAN = 0 : INDIFERENTE</span>
+                            <p class="text-xs text-slate-600 mt-0.5 leading-tight">Rinde con exactitud la tasa mínima de corte requerida (TIR = r).</p>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-rose-50 border border-rose-300 flex items-start space-x-3">
+                        <span class="text-2xl">❌</span>
+                        <div>
+                            <span class="font-bold text-rose-900 text-xs sm:text-sm block">VAN < 0 : RECHAZAR</span>
+                            <p class="text-xs text-rose-800 mt-0.5 leading-tight">Destruye valor frente a alternativas del mercado con similar perfil de riesgo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 5: Laboratorio Interactivo de Evaluación de Proyectos (VAN) -->
+    <section id="modulo-5" class="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8">
+            <span class="text-xs font-bold text-emerald-700 tracking-wider uppercase bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">Módulo 5: Aplicación Práctica</span>
+            <h3 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">Calculador y Simulador de Flujos de Proyecto (VAN)</h3>
+            <p class="text-slate-600 text-xs sm:text-base max-w-3xl mx-auto mt-1">
+                Ajusta la inversión, modifica los flujos proyectados y la tasa de corte (WACC/TMAR) para observar el cálculo matemático paso a paso y el dictamen ejecutivo en vivo.
+            </p>
+        </div>
+
+        <!-- Presets bar -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+            <span class="text-xs text-slate-500 mr-1 font-semibold">Cargar proyectos de ejemplo:</span>
+            <button onclick="loadNpvScenario('solar')" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white hover:bg-amber-50 text-amber-900 border border-amber-300 transition-all flex items-center gap-1.5 shadow-2xs">
+                <span>☀️</span> Planta Solar (Inversión alta, retorno sostenido)
+            </button>
+            <button onclick="loadNpvScenario('software')" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white hover:bg-indigo-50 text-indigo-900 border border-indigo-300 transition-all flex items-center gap-1.5 shadow-2xs">
+                <span>💻</span> Software SaaS (Escalamiento dinámico)
+            </button>
+            <button onclick="loadNpvScenario('coffee')" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white hover:bg-emerald-50 text-emerald-900 border border-emerald-300 transition-all flex items-center gap-1.5 shadow-2xs">
+                <span>☕</span> Cafetería de Especialidad (Riesgo balanceado)
+            </button>
+            <button onclick="loadNpvScenario('bad')" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white hover:bg-rose-50 text-rose-900 border border-rose-300 transition-all flex items-center gap-1.5 shadow-2xs">
+                <span>⚠️</span> Proyecto Inviable (VAN Negativo)
+            </button>
+        </div>
+
+        <!-- Main Evaluator Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+            <!-- Left Column: Inputs & Flow Editor (5 cols) -->
+            <div class="lg:col-span-5 space-y-5">
+                <div class="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-md space-y-5">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">Parámetros Financieros</h4>
+                        <span class="text-[11px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md font-semibold">Editable</span>
+                    </div>
+
+                    <!-- Inversión Inicial -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="text-xs font-bold uppercase tracking-wider text-rose-700">Inversión Inicial (I₀):</label>
+                            <span class="text-[11px] text-slate-500">Desembolso en Periodo 0</span>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 font-mono font-bold">$</span>
+                            <input type="number" id="npv-i0" value="10000" min="0" step="500" class="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 font-mono font-semibold focus:outline-none focus:ring-2 focus:ring-rose-500 text-sm" oninput="calculateNPV()">
+                        </div>
+                    </div>
+
+                    <!-- Tasa de Descuento (r) -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="text-xs font-bold uppercase tracking-wider text-amber-800">Tasa de Descuento Exigida (r):</label>
+                            <span id="npv-rate-display" class="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">12%</span>
+                        </div>
+                        <input type="range" id="npv-discount-rate" min="1" max="35" step="0.5" value="12" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="calculateNPV()">
+                        <p class="text-[11px] text-slate-500 mt-1">Representa el WACC o la tasa mínima aceptable de rendimiento (TMAR).</p>
+                    </div>
+
+                    <!-- Cash Flows List -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-indigo-800">Flujos de Caja Anuales (FC):</label>
+                            <div class="flex gap-1.5">
+                                <button onclick="addCashFlowPeriod()" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-300 transition-colors flex items-center gap-1">
+                                    <span>+</span> Periodo
+                                </button>
+                                <button onclick="removeCashFlowPeriod()" class="px-2 py-1 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 text-xs font-bold rounded-lg border border-slate-300 transition-colors flex items-center gap-1">
+                                    <span>-</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="cashflows-container" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pedagogical Tip Box -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 text-xs text-slate-600 leading-relaxed shadow-xs">
+                    <span class="font-bold text-emerald-800 flex items-center gap-1.5 mb-1 text-sm">
+                        <span>💡</span> Nota del Project Manager:
+                    </span>
+                    Nunca sumes directamente los flujos nominales sin descontar. La suma directa ignora la inflación, el riesgo financiero y la rentabilidad alternativa que el capital podría haber generado en el mercado.
+                </div>
+            </div>
+
+            <!-- Right Column: Real-time Decision, Step-by-Step Table & Graphic (7 cols) -->
+            <div class="lg:col-span-7 space-y-5">
+                <!-- Executive Decision Badge Card -->
+                <div id="decision-card" class="rounded-3xl p-5 sm:p-6 border transition-all duration-300 bg-white border-emerald-300 shadow-md">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <span class="text-[11px] uppercase font-bold tracking-widest text-slate-500">Dictamen Financiero Ejecutivo</span>
+                            <div class="flex flex-wrap items-baseline gap-2 mt-1">
+                                <span id="van-result-badge" class="text-2xl sm:text-4xl font-black font-mono text-emerald-700">+$2,450.18</span>
+                                <span id="van-decision-pill" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">VIABLE (ACEPTAR)</span>
+                            </div>
+                        </div>
+                        <div class="text-left sm:text-right border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200">
+                            <span class="text-xs text-slate-500 block">Suma Flujos Descontados</span>
+                            <span id="sum-discounted-flows" class="text-sm sm:text-base font-mono font-bold text-indigo-700">$12,450.18</span>
+                            <span class="text-[11px] text-slate-500 block mt-0.5">vs. Inversión: <span id="display-inv-compare" class="text-rose-600 font-mono font-semibold">$10,000.00</span></span>
+                        </div>
+                    </div>
+
+                    <p id="decision-explanation" class="mt-4 text-xs sm:text-sm text-slate-700 border-t border-slate-200 pt-3 leading-relaxed">
+                        Este proyecto genera suficientes ingresos para devolver la inversión inicial, retribuir la tasa exigida y crear valor adicional.
+                    </p>
+                </div>
+
+                <!-- Step-by-Step Mathematical Table -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-md">
+                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+                        <h4 class="font-bold text-slate-900 text-xs sm:text-sm flex items-center gap-1.5">
+                            <span>📐</span> Desglose Matemático Paso a Paso
+                        </h4>
+                        <span class="text-[11px] text-slate-500 font-mono">FCₜ / (1+r)ᵗ</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs font-mono">
+                            <thead>
+                                <tr class="text-slate-500 border-b border-slate-200 bg-slate-50">
+                                    <th class="py-2.5 px-3">Periodo (t)</th>
+                                    <th class="py-2.5 px-3">Flujo Neto Nominal</th>
+                                    <th class="py-2.5 px-3">Factor: 1/(1+r)ᵗ</th>
+                                    <th class="py-2.5 px-3 text-right">Valor Descontado (VA)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="npv-step-table" class="divide-y divide-slate-100 text-slate-700">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Graphic Comparison: Nominal vs Discounted Cash Flows -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-md">
+                    <div class="mb-3">
+                        <h4 class="font-bold text-slate-900 text-xs sm:text-sm">Comparación Visual: Flujo Nominal vs. Descontado</h4>
+                        <p class="text-[11px] sm:text-xs text-slate-500">Observa cómo los flujos más distantes en el tiempo pierden mayor valor relativo al ser traídos a hoy.</p>
+                    </div>
+                    <div class="h-60 sm:h-64 w-full">
+                        <canvas id="canvas-npv-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 6: Autoevaluación Pedagógica (Comprueba tu comprensión) -->
+    <section class="py-10 sm:py-16 max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="bg-white border border-slate-200 rounded-3xl p-5 sm:p-8 shadow-md">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold text-indigo-700 tracking-wider uppercase bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-200">Evaluación Formativa</span>
+                <h3 class="text-xl sm:text-3xl font-extrabold text-slate-900 mt-2">Comprobación de Conceptos Clave</h3>
+                <p class="text-slate-600 text-xs sm:text-sm mt-1">Verifica tu comprensión con estas dos preguntas prácticas.</p>
+            </div>
+
+            <div class="space-y-5">
+                <!-- Quiz 1 -->
+                <div class="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-slate-900 text-xs sm:text-sm mb-3">1. Si la tasa de descuento exigida (r) sube del 10% al 20%, ¿qué ocurre con el Valor Actual de los flujos futuros?</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                        <button onclick="checkQuiz(this, false, 'q1-msg', 'Incorrecto. Al dividir entre una tasa mayor, el valor actual disminuye.')" class="quiz-btn p-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-left transition-colors font-medium">
+                            A) Sube porque el rendimiento exigido es mayor.
+                        </button>
+                        <button onclick="checkQuiz(this, true, 'q1-msg', '¡Correcto! A mayor tasa de descuento, el denominador (1+r)ᵗ es más grande, por lo que el dinero futuro vale MENOS en el presente.')" class="quiz-btn p-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-left transition-colors font-medium">
+                            B) Disminuye, pues se castiga más el valor futuro.
+                        </button>
+                        <button onclick="checkQuiz(this, false, 'q1-msg', 'Incorrecto. La tasa de descuento tiene un efecto exponencial en el valor actual.')" class="quiz-btn p-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-left transition-colors font-medium">
+                            C) No cambia, permanece idéntico.
+                        </button>
+                    </div>
+                    <p id="q1-msg" class="hidden mt-3 text-xs p-3 rounded-xl font-medium"></p>
+                </div>
+
+                <!-- Quiz 2 -->
+                <div class="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
+                    <h4 class="font-bold text-slate-900 text-xs sm:text-sm mb-3">2. Si un proyecto tiene un VAN exactamente igual a $0, ¿qué significa para el patrocinador o director de proyecto?</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                        <button onclick="checkQuiz(this, false, 'q2-msg', 'Incorrecto. El proyecto recupera la inversión y rinde exactamente la tasa de descuento requerida.')" class="quiz-btn p-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-left transition-colors font-medium">
+                            A) El proyecto es un fracaso económico total.
+                        </button>
+                        <button onclick="checkQuiz(this, true, 'q2-msg', '¡Excelente! VAN = 0 indica que el proyecto rinde exactamente la tasa exigida (TIR = r); no agrega ni destruye excedente patrimonial.')" class="quiz-btn p-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-left transition-colors font-medium">
+                            B) Rinde con exactitud la tasa mínima de corte exigida.
+                        </button>
+                        <button onclick="checkQuiz(this, false, 'q2-msg', 'Incorrecto. Sí se recupera la inversión inicial al 100%.')" class="quiz-btn p-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 text-left transition-colors font-medium">
+                            C) Nunca se podrá amortizar el desembolso inicial.
+                        </button>
+                    </div>
+                    <p id="q2-msg" class="hidden mt-3 text-xs p-3 rounded-xl font-medium"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4">
+            <p class="font-semibold text-slate-700">Aplicación Didáctica de Ingeniería Económica & Dirección de Proyectos.</p>
+            <p class="mt-1">Diseñada para enseñanza interactiva, visualización financiera y diseño responsivo adaptativo.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* Mobile navigation toggle */
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            nav.classList.toggle('hidden');
+        }
+
+        /* Global Variables & State */
+        let simMode = 'VF'; // 'VF' = Compound forward, 'VA' = Discount backward
+        let simChartInstance = null;
+        let npvChartInstance = null;
+
+        // Cash flow state for Module 5
+        let currentCashFlows = [3000, 3500, 4000, 4200];
+
+        /* Formula Explorer Terms Dictionary */
+        const formulaTerms = {
+            'VF': {
+                title: 'Valor Futuro (Future Value)',
+                badge: 'VF',
+                color: 'emerald',
+                desc: 'Es la cantidad acumulada a la que crecerá un capital invertido hoy tras transcurrir periodos ganando una tasa de interés compuesto i.',
+                pmRole: 'Indica el valor nominal que tendrá una ganancia esperada o una deuda cuando venza el plazo fijado en el proyecto.'
+            },
+            'VA': {
+                title: 'Valor Actual (Present Value)',
+                badge: 'VA',
+                color: 'indigo',
+                desc: 'Es lo que vale hoy en día una promesa de dinero futuro. Representa el valor presente antes de acumular rendimientos temporales.',
+                pmRole: 'El valor máximo que un patrocinador o inversionista debería estar dispuesto a comprometer hoy por ese flujo futuro.'
+            },
+            'i': {
+                title: 'Tasa de Interés o Descuento (Rate)',
+                badge: 'i / r',
+                color: 'amber',
+                desc: 'Porcentaje de rendimiento o costo por periodo. Refleja tanto la compensación por la espera como el costo de oportunidad del capital.',
+                pmRole: 'En proyectos suele equivaler al Costo Promedio Ponderado de Capital (WACC) o a la Tasa Mínima Atractiva de Retorno (TMAR).'
+            },
+            'n': {
+                title: 'Número de Periodos (Periods)',
+                badge: 'n / t',
+                color: 'purple',
+                desc: 'El tiempo durante el cual el dinero está invertido o sujeto a descuento. Siempre debe expresarse en la misma base temporal que la tasa i.',
+                pmRole: 'El ciclo de vida o el horizonte de evaluación económica estipulado en la planificación del proyecto.'
+            }
+        };
+
+        function selectFormulaTerm(termKey) {
+            const data = formulaTerms[termKey];
+            if (!data) return;
+
+            const box = document.getElementById('formula-explanation-box');
+            const title = document.getElementById('term-title');
+            const badge = document.getElementById('term-badge');
+            const desc = document.getElementById('term-desc');
+            const pmRole = document.getElementById('term-pm-role');
+
+            title.textContent = data.title;
+            badge.textContent = data.badge;
+
+            if (data.color === 'emerald') {
+                badge.className = 'px-2.5 py-0.5 rounded text-xs font-bold bg-emerald-600 text-white';
+            } else if (data.color === 'indigo') {
+                badge.className = 'px-2.5 py-0.5 rounded text-xs font-bold bg-indigo-600 text-white';
+            } else if (data.color === 'amber') {
+                badge.className = 'px-2.5 py-0.5 rounded text-xs font-bold bg-amber-600 text-white';
+            } else {
+                badge.className = 'px-2.5 py-0.5 rounded text-xs font-bold bg-purple-600 text-white';
+            }
+
+            desc.textContent = data.desc;
+            pmRole.textContent = data.pmRole;
+
+            box.classList.add('ring-2', 'ring-emerald-400');
+            setTimeout(() => box.classList.remove('ring-2', 'ring-emerald-400'), 350);
+        }
+
+        function setSimMode(mode) {
+            simMode = mode;
+            const btnVf = document.getElementById('btn-mode-vf');
+            const btnVa = document.getElementById('btn-mode-va');
+            const lblAmount = document.getElementById('lbl-sim-amount');
+
+            if (mode === 'VF') {
+                btnVf.className = "py-2.5 px-2 text-xs font-bold rounded-lg bg-emerald-600 text-white shadow-xs transition-all";
+                btnVa.className = "py-2.5 px-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+                lblAmount.textContent = "Valor Actual (VA) Inicial:";
+            } else {
+                btnVa.className = "py-2.5 px-2 text-xs font-bold rounded-lg bg-indigo-600 text-white shadow-xs transition-all";
+                btnVf.className = "py-2.5 px-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+                lblAmount.textContent = "Valor Futuro (VF) Objetivo:";
+            }
+            updateSim();
+        }
+
+        function applyPreset(amount, rate, periods) {
+            document.getElementById('input-sim-amount').value = amount;
+            document.getElementById('input-sim-rate').value = rate;
+            document.getElementById('input-sim-periods').value = periods;
+            updateSim();
+        }
+
+        function updateSim() {
+            const amount = parseFloat(document.getElementById('input-sim-amount').value);
+            const ratePercent = parseFloat(document.getElementById('input-sim-rate').value);
+            const periods = parseInt(document.getElementById('input-sim-periods').value);
+            const r = ratePercent / 100;
+
+            document.getElementById('txt-sim-amount').textContent = `$${amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('txt-sim-rate').textContent = `${ratePercent.toFixed(1)}%`;
+            document.getElementById('txt-sim-periods').textContent = `${periods} ${periods === 1 ? 'año' : 'años'}`;
+
+            const compoundFactor = Math.pow(1 + r, periods);
+            document.getElementById('res-factor').textContent = `${compoundFactor.toFixed(4)}x`;
+
+            const tbody = document.getElementById('sim-timeline-body');
+            tbody.innerHTML = '';
+
+            let chartLabels = [];
+            let chartData = [];
+
+            if (simMode === 'VF') {
+                document.getElementById('res-initial').textContent = `$${amount.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                document.getElementById('res-initial-sub').textContent = 'Capital Actual (VA)';
+                const finalVF = amount * compoundFactor;
+                document.getElementById('res-final').textContent = `$${finalVF.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                document.getElementById('res-final-sub').textContent = `Valor Futuro en t=${periods}`;
+
+                let currentBalance = amount;
+                chartLabels.push('Año 0');
+                chartData.push(amount);
+
+                for (let t = 1; t <= periods; t++) {
+                    const interestEarned = currentBalance * r;
+                    const nextBalance = currentBalance + interestEarned;
+
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-100/80 transition-colors";
+                    tr.innerHTML = `
+                        <td class="py-2 px-2.5 font-bold text-slate-800">Año ${t}</td>
+                        <td class="py-2 px-2.5 text-slate-600">$${currentBalance.toFixed(2)}</td>
+                        <td class="py-2 px-2.5 text-emerald-700 font-semibold">+$${interestEarned.toFixed(2)}</td>
+                        <td class="py-2 px-2.5 text-slate-900 font-bold">$${nextBalance.toFixed(2)}</td>
+                        <td class="py-2 px-2.5 text-slate-500 text-[11px]">$${amount} × (1+${r.toFixed(2)})<sup>${t}</sup></td>
+                    `;
+                    tbody.appendChild(tr);
+
+                    currentBalance = nextBalance;
+                    chartLabels.push(`Año ${t}`);
+                    chartData.push(Number(currentBalance.toFixed(2)));
+                }
+            } else {
+                const discountedVA = amount / compoundFactor;
+                document.getElementById('res-initial').textContent = `$${amount.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                document.getElementById('res-initial-sub').textContent = `Meta en t=${periods} (VF)`;
+                document.getElementById('res-final').textContent = `$${discountedVA.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                document.getElementById('res-final-sub').textContent = 'Valor Actual Descontado (VA)';
+
+                chartLabels = [];
+                chartData = [];
+
+                for (let t = 0; t <= periods; t++) {
+                    const valAtT = amount / Math.pow(1 + r, periods - t);
+                    chartLabels.push(`Año ${t}`);
+                    chartData.push(Number(valAtT.toFixed(2)));
+
+                    if (t > 0) {
+                        const prevVal = amount / Math.pow(1 + r, periods - (t - 1));
+                        const discountPortion = valAtT - prevVal;
+                        const tr = document.createElement('tr');
+                        tr.className = "hover:bg-slate-100/80 transition-colors";
+                        tr.innerHTML = `
+                            <td class="py-2 px-2.5 font-bold text-slate-800">Año ${t}</td>
+                            <td class="py-2 px-2.5 text-slate-600">$${prevVal.toFixed(2)}</td>
+                            <td class="py-2 px-2.5 text-indigo-700 font-semibold">+$${discountPortion.toFixed(2)}</td>
+                            <td class="py-2 px-2.5 text-slate-900 font-bold">$${valAtT.toFixed(2)}</td>
+                            <td class="py-2 px-2.5 text-slate-500 text-[11px]">$${amount} / (1+${r.toFixed(2)})<sup>${periods - t}</sup></td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                }
+            }
+
+            renderSimChart(chartLabels, chartData);
+        }
+
+        function renderSimChart(labels, data) {
+            const ctx = document.getElementById('canvas-sim-chart').getContext('2d');
+            if (simChartInstance) {
+                simChartInstance.destroy();
+            }
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 180);
+            if (simMode === 'VF') {
+                gradient.addColorStop(0, 'rgba(22, 163, 74, 0.22)');
+                gradient.addColorStop(1, 'rgba(22, 163, 74, 0.01)');
+            } else {
+                gradient.addColorStop(0, 'rgba(79, 70, 229, 0.22)');
+                gradient.addColorStop(1, 'rgba(79, 70, 229, 0.01)');
+            }
+
+            simChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: simMode === 'VF' ? 'Capital Acumulado' : 'Valor Temporal',
+                        data: data,
+                        borderColor: simMode === 'VF' ? '#16a34a' : '#4f46e5',
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 2.5,
+                        pointBackgroundColor: simMode === 'VF' ? '#15803d' : '#4338ca',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4.5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            titleColor: '#ffffff',
+                            bodyColor: '#f8fafc',
+                            callbacks: {
+                                label: (item) => ` Valor: $${item.raw.toLocaleString('en-US', {minimumFractionDigits: 2})}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#e2e8f0' },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { color: '#e2e8f0' },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 10 },
+                                callback: (val) => `$${val}`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderCashFlowInputs() {
+            const container = document.getElementById('cashflows-container');
+            container.innerHTML = '';
+
+            currentCashFlows.forEach((flow, index) => {
+                const periodNum = index + 1;
+                const row = document.createElement('div');
+                row.className = "flex items-center space-x-2 bg-slate-50 p-2 rounded-xl border border-slate-200";
+                row.innerHTML = `
+                    <span class="text-xs font-mono font-bold text-indigo-800 w-16">Año ${periodNum}:</span>
+                    <div class="relative flex-1">
+                        <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-slate-400 font-mono text-xs">$</span>
+                        <input type="number" value="${flow}" step="100" class="w-full pl-6 pr-2 py-1.5 bg-white border border-slate-300 rounded-lg text-slate-900 font-mono text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500" oninput="updateFlowValue(${index}, this.value)">
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function updateFlowValue(index, val) {
+            currentCashFlows[index] = parseFloat(val) || 0;
+            calculateNPV();
+        }
+
+        function addCashFlowPeriod() {
+            if (currentCashFlows.length >= 10) return;
+            const lastVal = currentCashFlows[currentCashFlows.length - 1] || 1000;
+            currentCashFlows.push(lastVal);
+            renderCashFlowInputs();
+            calculateNPV();
+        }
+
+        function removeCashFlowPeriod() {
+            if (currentCashFlows.length <= 1) return;
+            currentCashFlows.pop();
+            renderCashFlowInputs();
+            calculateNPV();
+        }
+
+        function loadNpvScenario(type) {
+            if (type === 'solar') {
+                document.getElementById('npv-i0').value = 25000;
+                document.getElementById('npv-discount-rate').value = 8;
+                currentCashFlows = [6000, 7000, 7500, 8000, 8500];
+            } else if (type === 'software') {
+                document.getElementById('npv-i0').value = 15000;
+                document.getElementById('npv-discount-rate').value = 15;
+                currentCashFlows = [2000, 5000, 9000, 14000];
+            } else if (type === 'coffee') {
+                document.getElementById('npv-i0').value = 12000;
+                document.getElementById('npv-discount-rate').value = 10;
+                currentCashFlows = [4000, 4200, 4500, 4800];
+            } else if (type === 'bad') {
+                document.getElementById('npv-i0').value = 20000;
+                document.getElementById('npv-discount-rate').value = 16;
+                currentCashFlows = [3000, 3500, 4000, 4500];
+            }
+            renderCashFlowInputs();
+            calculateNPV();
+        }
+
+        function calculateNPV() {
+            const i0 = parseFloat(document.getElementById('npv-i0').value) || 0;
+            const discountRate = parseFloat(document.getElementById('npv-discount-rate').value) || 0;
+            const r = discountRate / 100;
+
+            document.getElementById('npv-rate-display').textContent = `${discountRate.toFixed(1)}%`;
+            document.getElementById('display-inv-compare').textContent = `$${i0.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+
+            const stepTableBody = document.getElementById('npv-step-table');
+            stepTableBody.innerHTML = '';
+
+            let sumDiscounted = 0;
+            let chartLabels = ['Año 0 (Inv)'];
+            let nominalFlowsData = [-i0];
+            let discountedFlowsData = [-i0];
+
+            // Period 0 row
+            const tr0 = document.createElement('tr');
+            tr0.className = "bg-rose-50/70 text-rose-800 font-semibold";
+            tr0.innerHTML = `
+                <td class="py-2 px-3">0 (Desembolso)</td>
+                <td class="py-2 px-3 text-rose-700">-$${i0.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+                <td class="py-2 px-3 text-slate-500">1.0000</td>
+                <td class="py-2 px-3 text-right text-rose-700 font-bold">-$${i0.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+            `;
+            stepTableBody.appendChild(tr0);
+
+            // Discount each future period
+            currentCashFlows.forEach((flow, idx) => {
+                const t = idx + 1;
+                const factor = Math.pow(1 + r, t);
+                const discountedVal = flow / factor;
+                sumDiscounted += discountedVal;
+
+                chartLabels.push(`Año ${t}`);
+                nominalFlowsData.push(flow);
+                discountedFlowsData.push(Number(discountedVal.toFixed(2)));
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-2 px-3 font-bold text-slate-800">Año ${t}</td>
+                    <td class="py-2 px-3 text-indigo-700 font-semibold">$${flow.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+                    <td class="py-2 px-3 text-slate-500 text-[11px]">1 / (1+${r.toFixed(3)})<sup>${t}</sup> = ${(1/factor).toFixed(4)}</td>
+                    <td class="py-2 px-3 text-right text-emerald-700 font-bold">+$${discountedVal.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+                `;
+                stepTableBody.appendChild(tr);
+            });
+
+            // NPV = sum of discounted flows - Initial Investment
+            const npv = sumDiscounted - i0;
+
+            // Update UI Badges & Decision Card
+            document.getElementById('sum-discounted-flows').textContent = `$${sumDiscounted.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+            const vanResultBadge = document.getElementById('van-result-badge');
+            const vanDecisionPill = document.getElementById('van-decision-pill');
+            const decisionCard = document.getElementById('decision-card');
+            const decisionExplanation = document.getElementById('decision-explanation');
+
+            if (npv > 0.01) {
+                vanResultBadge.textContent = `+$${npv.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                vanResultBadge.className = "text-2xl sm:text-4xl font-black font-mono text-emerald-700";
+                vanDecisionPill.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+                vanDecisionPill.textContent = "✅ VIABLE (APROBAR PROYECTO)";
+                decisionCard.className = "rounded-3xl p-5 sm:p-6 border transition-all duration-300 bg-white border-emerald-300 shadow-md shadow-emerald-50";
+                decisionExplanation.innerHTML = `<strong>Veredicto Didáctico:</strong> El proyecto es financieramente recomendable. Logra amortizar la inversión inicial de <strong>$${i0.toLocaleString()}</strong>, remunera el costo de oportunidad del <strong>${discountRate.toFixed(1)}%</strong> anual y aporta un beneficio adicional neto de <strong>$${npv.toLocaleString('en-US', {minimumFractionDigits: 2})}</strong> a valor presente.`;
+            } else if (Math.abs(npv) <= 0.01) {
+                vanResultBadge.textContent = `$0.00`;
+                vanResultBadge.className = "text-2xl sm:text-4xl font-black font-mono text-slate-700";
+                vanDecisionPill.className = "px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-800 border border-slate-300";
+                vanDecisionPill.textContent = "⚖️ INDIFERENTE (TIR = Tasa)";
+                decisionCard.className = "rounded-3xl p-5 sm:p-6 border transition-all duration-300 bg-white border-slate-300 shadow-md";
+                decisionExplanation.innerHTML = `<strong>Veredicto Didáctico:</strong> El proyecto rinde exactamente el <strong>${discountRate.toFixed(1)}%</strong> requerido. No agrega riqueza extra ni genera pérdidas patrimoniales.`;
+            } else {
+                vanResultBadge.textContent = `-$${Math.abs(npv).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                vanResultBadge.className = "text-2xl sm:text-4xl font-black font-mono text-rose-700";
+                vanDecisionPill.className = "px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300";
+                vanDecisionPill.textContent = "❌ NO VIABLE (RECHAZAR)";
+                decisionCard.className = "rounded-3xl p-5 sm:p-6 border transition-all duration-300 bg-white border-rose-300 shadow-md shadow-rose-50";
+                decisionExplanation.innerHTML = `<strong>Veredicto Didáctico:</strong> El proyecto <strong>destruye valor económico</strong>. La suma descontada ($${sumDiscounted.toLocaleString('en-US', {minimumFractionDigits: 2})}) no logra cubrir la inversión requerida ($${i0.toLocaleString()}) al costo de capital del ${discountRate.toFixed(1)}%. Resulta más conveniente colocar los fondos en otras alternativas.`;
+            }
+
+            renderNpvChart(chartLabels, nominalFlowsData, discountedFlowsData);
+        }
+
+        function renderNpvChart(labels, nominalData, discountedData) {
+            const ctx = document.getElementById('canvas-npv-chart').getContext('2d');
+            if (npvChartInstance) {
+                npvChartInstance.destroy();
+            }
+
+            npvChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Flujo Nominal Prometido',
+                            data: nominalData,
+                            backgroundColor: 'rgba(99, 102, 241, 0.45)',
+                            borderColor: '#6366f1',
+                            borderWidth: 1.5,
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Valor Actual Descontado (VA)',
+                            data: discountedData,
+                            backgroundColor: 'rgba(22, 163, 74, 0.75)',
+                            borderColor: '#16a34a',
+                            borderWidth: 1.5,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#334155', font: { size: 11, weight: '600' } }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            callbacks: {
+                                label: (ctx) => ` ${ctx.dataset.label}: $${ctx.raw.toLocaleString('en-US', {minimumFractionDigits: 2})}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#f1f5f9' },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { color: '#e2e8f0' },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 10 },
+                                callback: (val) => `$${val}`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function checkQuiz(button, isCorrect, msgId, feedbackText) {
+            const msgEl = document.getElementById(msgId);
+            const parent = button.parentElement;
+            const allButtons = parent.querySelectorAll('.quiz-btn');
+
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('border-emerald-500', 'border-rose-500', 'bg-emerald-50', 'bg-rose-50');
+            });
+
+            if (isCorrect) {
+                button.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-800');
+                msgEl.className = "mt-3 text-xs p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 block";
+            } else {
+                button.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-800');
+                msgEl.className = "mt-3 text-xs p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 block";
+            }
+            msgEl.textContent = feedbackText;
+        }
+
+        // Bootstrap on DOM load
+        window.addEventListener('DOMContentLoaded', () => {
+            selectFormulaTerm('VF');
+            updateSim();
+            renderCashFlowInputs();
+            calculateNPV();
+        });
+    </script>
+</body>
+</html>
